@@ -1,11 +1,8 @@
 {
   "name": "productidea",
   "version": "1.0.0",
-  "description": "Let's do this thing.",
   "main": "index.js",
-  "scripts": {
-    "test": "test"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rossmoody/productidea.git"

@@ -2,6 +2,7 @@ twttr.ready(function (twttr) {
   fetch("https://45a7f9eb-3cc0-43ec-9644-5c1f4f407873.mock.pstmn.io")
     .then((response) => response.text())
     .then((results) => {
+      document.querySelector(".loader").classList.add("hide-loader");
       const arr = [];
       const obj = JSON.parse(results);
       const data = obj.data;
