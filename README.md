@@ -1,3 +1,3 @@
-# Product ideas website
+# I Need a Product Idea
 
-Let's do this thing.
+The search engine for product ideas.
