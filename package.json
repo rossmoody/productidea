@@ -2,7 +2,9 @@
   "name": "productidea",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "parcel watch index.html"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rossmoody/productidea.git"
@@ -12,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/rossmoody/productidea/issues"
   },
-  "homepage": "https://github.com/rossmoody/productidea#readme"
+  "homepage": "https://github.com/rossmoody/productidea#readme",
+  "dependencies": {
+    "parcel": "^1.12.4"
+  }
 }
