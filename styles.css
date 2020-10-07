@@ -1,21 +1,12 @@
-.loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
+aside {
+  padding: 40px;
 }
 
-.hide-loader {
-  display: none;
+.flex {
+  display: flex;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+#container {
+  display: flex;
+  flex-direction: column;
 }

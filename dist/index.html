@@ -5,11 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I Need a Product Idea</title>
     <link rel="stylesheet" href="/styles.8986bff4.css">
-  <script src="/styles.8986bff4.js"></script></head>
+    <link rel="stylesheet" href="/normalize.0a915d5e.css">
+  <script src="/styles.8986bff4.js"></script><script src="/normalize.0a915d5e.js"></script></head>
   <body>
-    <div id="container">
-      <div class="loader"></div>
-    </div>
+    <nav></nav>
+    <header></header>
+    <main class="flex">
+      <aside>
+        <form>
+          <div>
+            <label for="min-likes">Minimum likes</label>
+            <select id="min-likes" name="min-likes">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+          <div>
+            <label for="min-retweets">Minimum retweets</label>
+            <select id="min-retweets" name="min-retweets">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+        </form>
+      </aside>
+      <section id="container"></section>
+    </main>
+    <footer>
+      Made by <a href="https://www.twitter.com/_rossmoody">@_rossmoody</a>
+    </footer>
     <script src="https://platform.twitter.com/widgets.js"></script>
     <script src="/productidea.e31bb0bc.js"></script>
   </body>

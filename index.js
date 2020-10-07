@@ -1,3 +1,13 @@
+function filterResults(i, k) {
+  return i.filter((entry) => entry.public_metrics.like_count > k);
+}
+
+const minLikes = document.getElementById("min-likes");
+
+minLikes.addEventListener("change", (event) => {
+  console.log(event.target.value);
+});
+
 twttr.ready(function (twttr) {
   fetch("https://45a7f9eb-3cc0-43ec-9644-5c1f4f407873.mock.pstmn.io")
     .then((response) => response.text())
@@ -10,11 +20,8 @@ twttr.ready(function (twttr) {
         arr.push(entry);
       }
 
-      const finals = data.filter(
-        (entry) => entry.public_metrics.like_count > 5
-      );
+      const finals = filterResults(arr, 3);
 
-      document.querySelector(".loader").classList.add("hide-loader");
       finals.forEach((entry) => {
         twttr.widgets.createTweet(
           `${entry.id}`,
