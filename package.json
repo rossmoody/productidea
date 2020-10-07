@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "parcel watch index.html",
-    "build": "parcel index.html"
+    "start": "parcel watch index.html --public-url ./",
+    "build": "parcel index.html --public-url ./"
   },
   "repository": {
     "type": "git",

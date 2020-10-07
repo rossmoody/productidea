@@ -1,37 +1,27 @@
-function filterResults(i, k) {
-  return i.filter((entry) => entry.public_metrics.like_count > k);
+import { filterByLikes } from "./src/utils";
+
+function renderTweets(tweets) {
+  tweets.forEach((tweet) => {
+    twttr.widgets.createTweet(
+      `${tweet.id}`,
+      document.getElementById("container"),
+      {
+        conversation: "none",
+        cards: "hidden",
+      }
+    );
+  });
 }
 
-const minLikes = document.getElementById("min-likes");
-
-minLikes.addEventListener("change", (event) => {
-  console.log(event.target.value);
-});
-
-twttr.ready(function (twttr) {
+twttr.ready(function () {
   fetch("https://45a7f9eb-3cc0-43ec-9644-5c1f4f407873.mock.pstmn.io")
     .then((response) => response.text())
     .then((results) => {
-      const arr = [];
       const obj = JSON.parse(results);
-      const data = obj.data;
+      const { data } = obj;
+      const arr = [...data];
 
-      for (const entry of data) {
-        arr.push(entry);
-      }
-
-      const finals = filterResults(arr, 3);
-
-      finals.forEach((entry) => {
-        twttr.widgets.createTweet(
-          `${entry.id}`,
-          document.getElementById("container"),
-          {
-            conversation: "none",
-            cards: "hidden",
-          }
-        );
-      });
+      renderTweets(filterByLikes(3, arr));
     })
     .catch((error) => console.log("error", error));
 });
