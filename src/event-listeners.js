@@ -17,7 +17,7 @@ export function eventListeners(tweets) {
     retweets: 0,
     sortBy: null,
     phrases: {
-      iWouldPayFor: "i-would-pay-for",
+      iWishSomeoneWouldMake: "i-wish-someone-would-make",
       greatAppIdea: "great-app-idea",
       greatProductIdea: "great-product-idea",
       anAppWhere: "an-app-where",

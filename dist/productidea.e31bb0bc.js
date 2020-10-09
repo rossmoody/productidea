@@ -202,7 +202,7 @@ function eventListeners(tweets) {
     retweets: 0,
     sortBy: null,
     phrases: {
-      iWouldPayFor: "i-would-pay-for",
+      iWishSomeoneWouldMake: "i-wish-someone-would-make",
       greatAppIdea: "great-app-idea",
       greatProductIdea: "great-product-idea",
       anAppWhere: "an-app-where",
@@ -255,7 +255,7 @@ async function getData() {
 (function init() {
   getData().then(data => {
     (0, _render.renderTweets)((0, _filters.applyFilters)({
-      likes: 5,
+      likes: 2,
       retweets: 0,
       sortBy: "likes"
     }, data));

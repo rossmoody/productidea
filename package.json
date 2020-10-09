@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/rossmoody/productidea#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
+    "got": "^11.7.0",
+    "needle": "^2.5.2",
+    "oauth-1.0a": "^2.2.6",
     "parcel": "^1.12.4"
   },
   "browserslist": [

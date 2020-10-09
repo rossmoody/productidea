@@ -15,7 +15,7 @@ async function getData() {
 (function init() {
   getData().then((data) => {
     renderTweets(
-      applyFilters({ likes: 5, retweets: 0, sortBy: "likes" }, data)
+      applyFilters({ likes: 2, retweets: 0, sortBy: "likes" }, data)
     );
     eventListeners(data);
   });
