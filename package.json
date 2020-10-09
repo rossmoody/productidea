@@ -18,5 +18,8 @@
   "homepage": "https://github.com/rossmoody/productidea#readme",
   "dependencies": {
     "parcel": "^1.12.4"
-  }
+  },
+  "browserslist": [
+    "since 2017-06"
+  ]
 }

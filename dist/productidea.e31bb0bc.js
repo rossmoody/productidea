@@ -117,60 +117,152 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/utils.js":[function(require,module,exports) {
+})({"src/render.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.filterByLikes = filterByLikes;
-
-function filterByLikes(value, data) {
-  return data.filter(function (entry) {
-    return entry.public_metrics.like_count > value;
-  });
-}
-},{}],"index.js":[function(require,module,exports) {
-"use strict";
-
-var _utils = require("./src/utils");
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+exports.renderTweets = renderTweets;
 
 function renderTweets(tweets) {
-  tweets.forEach(function (tweet) {
-    twttr.widgets.createTweet("".concat(tweet.id), document.getElementById("container"), {
+  // Remove tweets
+  const tweetCont = document.getElementById("tweet-container");
+  tweetCont.remove(); // Create new container
+
+  const container = document.getElementById("container");
+  const newTweetCont = document.createElement("div");
+  newTweetCont.setAttribute("id", "tweet-container");
+  container.appendChild(newTweetCont); // Render tweets in new container
+
+  tweets.forEach(tweet => {
+    twttr.widgets.createTweet("".concat(tweet.id), newTweetCont, {
       conversation: "none",
       cards: "hidden"
     });
   });
 }
+},{}],"src/filters.js":[function(require,module,exports) {
+"use strict";
 
-twttr.ready(function () {
-  fetch("https://45a7f9eb-3cc0-43ec-9644-5c1f4f407873.mock.pstmn.io").then(function (response) {
-    return response.text();
-  }).then(function (results) {
-    var obj = JSON.parse(results);
-    var data = obj.data;
-
-    var arr = _toConsumableArray(data);
-
-    renderTweets((0, _utils.filterByLikes)(3, arr));
-  }).catch(function (error) {
-    return console.log("error", error);
-  });
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-},{"./src/utils":"src/utils.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+exports.applyFilters = applyFilters;
+
+function applyFilters(filterParams, tweets) {
+  // Filter logic
+  function filterLikes(tweet) {
+    return tweet.public_metrics.like_count >= filterParams.likes;
+  }
+
+  function filterRetweets(tweet) {
+    return tweet.public_metrics.retweet_count >= filterParams.retweets;
+  }
+
+  const filteredResults = tweets.filter(filterLikes).filter(filterRetweets); // Sorting logic
+
+  let sortBy;
+
+  if (filterParams.sortBy === "likes") {
+    sortBy = "like_count";
+  } else if (filterParams.sortBy === "retweets") {
+    sortBy = "retweet_count";
+  } else {
+    sortBy = null;
+  }
+
+  const sortedResults = filteredResults.sort(function (a, b) {
+    if (sortBy) return b.public_metrics[sortBy] - a.public_metrics[sortBy];
+  });
+  return sortedResults;
+}
+},{}],"src/event-listeners.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.eventListeners = eventListeners;
+
+var _render = require("./render");
+
+var _filters = require("./filters");
+
+function eventListeners(tweets) {
+  // Phrase filters
+  const iWouldPayFor = document.getElementById("i-would-pay-for"); // Common filters
+
+  const minLikes = document.getElementById("min-likes");
+  const minRetweets = document.getElementById("min-retweets"); // Sorting select
+
+  const sortBy = document.getElementById("sort");
+  const filterParams = {
+    likes: 2,
+    retweets: 0,
+    sortBy: null,
+    phrases: {
+      iWouldPayFor: "i-would-pay-for",
+      greatAppIdea: "great-app-idea",
+      greatProductIdea: "great-product-idea",
+      anAppWhere: "an-app-where",
+      amazingProductIdea: "amazing-product-idea",
+      iWishThereWas: "i-wish-there-was",
+      newProductRequest: "new-product-request"
+    },
+    hashtags: {
+      inapi: "#inapi",
+      productIdea: "#productidea",
+      appIdea: "#appidea"
+    }
+  };
+  minLikes.addEventListener("change", event => {
+    filterParams.likes = event.target.value;
+    (0, _render.renderTweets)((0, _filters.applyFilters)(filterParams, tweets));
+  });
+  minRetweets.addEventListener("change", event => {
+    filterParams.retweets = event.target.value;
+    (0, _render.renderTweets)((0, _filters.applyFilters)(filterParams, tweets));
+  });
+  sortBy.addEventListener("change", event => {
+    filterParams.sortBy = event.target.value;
+    (0, _render.renderTweets)((0, _filters.applyFilters)(filterParams, tweets));
+  });
+  iWouldPayFor.addEventListener("change", event => {
+    filterParams.phrases.iWouldPayFor = event.target.checked;
+    (0, _render.renderTweets)((0, _filters.applyFilters)(filterParams, tweets));
+  });
+}
+},{"./render":"src/render.js","./filters":"src/filters.js"}],"index.js":[function(require,module,exports) {
+"use strict";
+
+var _eventListeners = require("./src/event-listeners");
+
+var _filters = require("./src/filters");
+
+var _render = require("./src/render");
+
+async function getData() {
+  const response = await fetch("https://45a7f9eb-3cc0-43ec-9644-5c1f4f407873.mock.pstmn.io");
+  const text = await response.text();
+  const json = JSON.parse(text);
+  const {
+    data
+  } = json;
+  return [...data];
+}
+
+(function init() {
+  getData().then(data => {
+    (0, _render.renderTweets)((0, _filters.applyFilters)({
+      likes: 5,
+      retweets: 0,
+      sortBy: "likes"
+    }, data));
+    (0, _eventListeners.eventListeners)(data);
+  });
+})();
+},{"./src/event-listeners":"src/event-listeners.js","./src/filters":"src/filters.js","./src/render":"src/render.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -198,7 +290,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56948" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59546" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

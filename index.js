@@ -1,27 +1,22 @@
-import { filterByLikes } from "./src/utils";
+import { eventListeners } from "./src/event-listeners";
+import { applyFilters } from "./src/filters";
+import { renderTweets } from "./src/render";
 
-function renderTweets(tweets) {
-  tweets.forEach((tweet) => {
-    twttr.widgets.createTweet(
-      `${tweet.id}`,
-      document.getElementById("container"),
-      {
-        conversation: "none",
-        cards: "hidden",
-      }
-    );
-  });
+async function getData() {
+  const response = await fetch(
+    "https://45a7f9eb-3cc0-43ec-9644-5c1f4f407873.mock.pstmn.io"
+  );
+  const text = await response.text();
+  const json = JSON.parse(text);
+  const { data } = json;
+  return [...data];
 }
 
-twttr.ready(function () {
-  fetch("https://45a7f9eb-3cc0-43ec-9644-5c1f4f407873.mock.pstmn.io")
-    .then((response) => response.text())
-    .then((results) => {
-      const obj = JSON.parse(results);
-      const { data } = obj;
-      const arr = [...data];
-
-      renderTweets(filterByLikes(3, arr));
-    })
-    .catch((error) => console.log("error", error));
-});
+(function init() {
+  getData().then((data) => {
+    renderTweets(
+      applyFilters({ likes: 5, retweets: 0, sortBy: "likes" }, data)
+    );
+    eventListeners(data);
+  });
+})();
