@@ -41,7 +41,6 @@ async function getTweets() {
 
 async function getData() {
   try {
-    // Make request
     const response = await getTweets();
     return response;
   } catch (e) {
@@ -80,14 +79,12 @@ app.get("/.netlify/functions/hello", function (req, res) {
     const val = snapshot.val();
     const keys = Object.keys(val);
 
-    if (keys.includes(todaysDate)) {
-      console.log("It exists ->", todaysDate);
-    } else {
+    if (!keys.includes(todaysDate)) {
       getData().then((results) => {
         todayRef.set(results);
       });
     }
-  });
 
-  res.send("Hello Bob");
+    res.send(val);
+  });
 });

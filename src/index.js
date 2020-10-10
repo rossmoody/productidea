@@ -1,10 +1,4 @@
-// async function getData() {
-//   const response = await fetch("https://i-need-a-product-idea.firebaseio.com");
-//   const text = await response.text();
-//   const json = JSON.parse(text);
-//   const { data } = json;
-//   return [...data];
-// }
+import { renderTweets } from "./render";
 
 // (async function init() {
 // getData();
@@ -15,5 +9,10 @@
 // })();
 
 (async function init() {
-  console.log("work please");
+  const response = await fetch(
+    "http://localhost:3000/.netlify/functions/hello"
+  );
+  const json = await response.json();
+
+  renderTweets(json);
 })();

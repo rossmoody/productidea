@@ -1,4 +1,6 @@
+const express = require("express");
 const admin = require("firebase-admin");
+const needle = require("needle");
 
 const creds = {
   type: process.env.FIRE_TYPE,
@@ -13,32 +15,79 @@ const creds = {
   client_x509_cert_url: process.env.FIRE_CLIENT_CERT,
 };
 
+// Twitter API creds
+const token = process.env.BEARER_TOKEN;
+const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
+
+// Get data from Twitter
+async function getTweets() {
+  const params = {
+    query: "I wish someone would make",
+    "tweet.fields": "public_metrics,created_at",
+  };
+
+  const res = await needle("get", endpointUrl, params, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (res.body) {
+    return res.body;
+  } else {
+    throw new Error("Unsuccessful request");
+  }
+}
+
+async function getData() {
+  try {
+    const response = await getTweets();
+    return response;
+  } catch (e) {
+    console.log(e);
+    process.exit(-1);
+  }
+}
+
+// Server
+const app = express();
+app.listen(3000, () => console.log("Server is listening on port 3000"));
+app.use(express.static("local"));
+
+// Firebase
 admin.initializeApp({
   credential: admin.credential.cert(creds),
   databaseURL: "https://i-need-a-product-idea.firebaseio.com",
 });
 
+function getDate() {
+  const dateObj = new Date();
+  const month = dateObj.getUTCMonth() + 1;
+  const day = dateObj.getUTCDate();
+  const year = dateObj.getUTCFullYear();
+  return year + "-" + month + "-" + day + "-tweets";
+}
+
+const todaysDate = getDate();
+
 const db = admin.database();
-const ref = db.ref("testerson");
-
-// Rate limit helper
-const dateObj = new Date();
-const month = dateObj.getUTCMonth() + 1;
-const day = dateObj.getUTCDate();
-const year = dateObj.getUTCFullYear();
-
-const newdate = year + "/" + month + "/" + day;
+const ref = db.ref();
+const todayRef = db.ref(todaysDate);
 
 exports.handler = async (event, context, callback) => {
-  await ref.set({
-    date_of_birth: "June 23, 1912",
-    full_name: "Alan Turing",
-  });
+  await ref.once("value", (snapshot) => {
+    const val = snapshot.val();
+    const keys = Object.keys(val);
 
-  return callback(null, {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: `Test data added successfully`,
-    }),
+    if (!keys.includes(todaysDate)) {
+      getData().then((results) => {
+        todayRef.set(results);
+      });
+    }
+
+    return callback(null, {
+      statusCode: 200,
+      body: val,
+    });
   });
 };
