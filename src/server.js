@@ -1,14 +1,6 @@
-// async function getData() {
-//   const response = await fetch("https://i-need-a-product-idea.firebaseio.com");
-//   const text = await response.text();
-//   const json = JSON.parse(text);
-//   const { data } = json;
-//   return [...data];
-// }
-
 var admin = require("firebase-admin");
 
-var serviceAccount = require("./temp/creds.json");
+var serviceAccount = require("../temp/creds.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

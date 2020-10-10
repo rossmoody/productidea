@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html && node ./public/server.js",
+    "start": "parcel watch index.html && node ./src/server.js",
     "build": "parcel build index.html --no-source-maps --public-url ./ -d public/"
   },
   "repository": {
