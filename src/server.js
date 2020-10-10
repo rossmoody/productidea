@@ -1,5 +1,4 @@
 var admin = require("firebase-admin");
-
 var serviceAccount = require("../temp/creds.json");
 
 admin.initializeApp({
@@ -8,15 +7,6 @@ admin.initializeApp({
 });
 
 (async function init() {
-  // getData();
-  // renderTweets(
-  //   applyFilters({ likes: 2, retweets: 0, sortBy: "likes" }, [...data])
-  // );
-  // eventListeners([...data]);
-
-  // const response = await fetch("http://api.open-notify.org/iss-now.json");
-  // const json = await response.json();
-
   const db = admin.database();
   var ref = db.ref("dinsoaurs");
   ref.set({
