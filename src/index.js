@@ -6,12 +6,14 @@
 //   return [...data];
 // }
 
+// (async function init() {
+// getData();
+// renderTweets(
+//   applyFilters({ likes: 2, retweets: 0, sortBy: "likes" }, [...data])
+// );
+// eventListeners([...data]);
+// })();
+
 (async function init() {
-  // getData();
-  // renderTweets(
-  //   applyFilters({ likes: 2, retweets: 0, sortBy: "likes" }, [...data])
-  // );
-  // eventListeners([...data]);
-  // const response = await fetch("http://api.open-notify.org/iss-now.json");
-  // const json = await response.json();
+  console.log("work please");
 })();
