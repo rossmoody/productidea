@@ -1,1 +1,0 @@
-{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"styles.8986bff4.css","sourceRoot":"..","sourcesContent":["aside {\n  padding: 40px;\n}\n\n.flex {\n  display: flex;\n}\n\n#container {\n  display: flex;\n  flex-direction: column;\n}\n"]}

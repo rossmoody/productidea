@@ -1,4 +1,3 @@
-const fs = require("fs");
 const needle = require("needle");
 
 const token = process.env.BEARER_TOKEN;
@@ -25,16 +24,16 @@ async function getRequest() {
   }
 }
 
-(async () => {
+async function getData() {
   try {
+    // Make request
     const response = await getRequest();
-    fs.writeFileSync("input.json", JSON.stringify(response), function (err) {
-      if (err) throw err;
-      console.log("complete");
-    });
+    console.log(response);
   } catch (e) {
     console.log(e);
     process.exit(-1);
   }
   process.exit();
-})();
+}
+
+getData();
