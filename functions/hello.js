@@ -21,15 +21,24 @@ admin.initializeApp({
 const db = admin.database();
 const ref = db.ref("testerson");
 
-exports.handler = async (event) => {
+// Rate limit helper
+const dateObj = new Date();
+const month = dateObj.getUTCMonth() + 1;
+const day = dateObj.getUTCDate();
+const year = dateObj.getUTCFullYear();
+
+const newdate = year + "/" + month + "/" + day;
+
+exports.handler = async (event, context, callback) => {
   await ref.set({
     date_of_birth: "June 23, 1912",
     full_name: "Alan Turing",
   });
 
-  const subject = event.queryStringParameters.name || "World";
-  return {
+  return callback(null, {
     statusCode: 200,
-    body: `Hello ${subject}!`,
-  };
+    body: JSON.stringify({
+      data: `Test data added successfully`,
+    }),
+  });
 };
