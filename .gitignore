@@ -1,4 +1,5 @@
 # Build stuff
 node_modules
 dist
+public
 .cache
