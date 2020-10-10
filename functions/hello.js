@@ -22,7 +22,7 @@ const db = admin.database();
 const ref = db.ref("testerson");
 
 exports.handler = async (event) => {
-  ref.set({
+  await ref.set({
     date_of_birth: "June 23, 1912",
     full_name: "Alan Turing",
   });
