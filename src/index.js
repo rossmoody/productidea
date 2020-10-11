@@ -13,5 +13,7 @@ import { renderTweets } from "./render";
     method: "GET",
   });
 
-  console.log(response.body);
+  const json = await response.body.json();
+
+  console.log(json);
 })();
