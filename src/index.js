@@ -9,9 +9,9 @@ import { renderTweets } from "./render";
 // })();
 
 (async function init() {
-  const response = await fetch(process.env.INAPI_URL);
-  const json = await response.json();
+  const response = await fetch(process.env.INAPI_URL, {
+    method: "POST",
+  });
 
-  // renderTweets(json);
-  console.log(json.body);
+  console.log(response);
 })();
