@@ -69,23 +69,26 @@ const ref = db.ref();
 const todayRef = db.ref(todaysDate);
 
 exports.handler = async (event, context, callback) => {
-  const data = ref.once("value", (snapshot) => {
-    const val = snapshot.val();
-    // const keys = Object.keys(val);
+  // Perform the API call.
+  const get = () => {
+    ref.once("value", (snapshot) => {
+      const val = snapshot.val();
+      // const keys = Object.keys(val);
 
-    // if (!keys.includes(todaysDate)) {
-    //   getData().then((results) => {
-    //     todayRef.set(results);
-    //   });
-    // }
+      // if (!keys.includes(todaysDate)) {
+      //   getData().then((results) => {
+      //     todayRef.set(results);
+      //   });
+      // }
+      console.log(val);
+      callback(null, {
+        statusCode: 200,
+        body: JSON.stringify(val),
+      });
+    });
+  };
 
-    return val;
-  });
-
-  return callback(null, {
-    statusCode: 200,
-    body: JSON.stringify({
-      result: data,
-    }),
-  });
+  if (event.httpMethod == "GET") {
+    get();
+  }
 };
