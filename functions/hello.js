@@ -69,20 +69,22 @@ const ref = db.ref();
 const todayRef = db.ref(todaysDate);
 
 exports.handler = async (event, context, callback) => {
-  // const data = await ref.once("value", (snapshot) => {
-  //   const val = snapshot.val();
-  //   const keys = Object.keys(val);
+  const data = await ref.once("value", (snapshot) => {
+    const val = snapshot.val();
+    const keys = Object.keys(val);
 
-  //   console.log(keys);
+    console.log(keys);
 
-  //   if (!keys.includes(todaysDate)) {
-  //     getData().then((results) => {
-  //       todayRef.set(results);
-  //     });
-  //   }
+    // if (!keys.includes(todaysDate)) {
+    //   getData().then((results) => {
+    //     todayRef.set(results);
+    //   });
+    // }
 
-  //   return val;
-  // });
+    // return val;
+  });
+
+  console.log(data);
 
   return callback(null, {
     statusCode: 200,
