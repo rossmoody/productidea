@@ -14,6 +14,6 @@ import { renderTweets } from "./render";
   });
   const text = await response.text();
   console.log(text);
-  const json = await response.json();
+  const json = await text.json();
   console.log(json);
 })();

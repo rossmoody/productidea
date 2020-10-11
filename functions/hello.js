@@ -70,8 +70,8 @@ const todayRef = db.ref(todaysDate);
 
 exports.handler = async (event, context, callback) => {
   if (event.httpMethod == "GET") {
-    ref.once("value", (snapshot) => {
-      const val = snapshot.val();
+    ref.on("value", (snapshot) => {
+      const val = await snapshot.val();
       // const keys = Object.keys(val);
 
       // if (!keys.includes(todaysDate)) {
@@ -82,7 +82,7 @@ exports.handler = async (event, context, callback) => {
 
       return callback(null, {
         statusCode: 200,
-        body: JSON.stringify({ val }),
+        body: JSON.stringify(val),
       });
     });
   }
