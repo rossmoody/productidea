@@ -11,11 +11,18 @@ import { eventListeners } from "./event-listeners";
   const netlifyJson = json.data;
   console.log(netlifyJson);
 
+  for (const dayArr in netlifyJson) {
+    for (const tweet in json[dayArr]) {
+      massiveArrayOfTweetObjects.push(tweet);
+    }
+  }
+
+  // // The one that works on local server with Array
   // for (const dayArr in netlifyJson) {
   //   json[dayArr].forEach((entry) => {
   //     massiveArrayOfTweetObjects.push(entry);
   //   });
   // }
 
-  // eventListeners(massiveArrayOfTweetObjects);
+  eventListeners(massiveArrayOfTweetObjects);
 })();
