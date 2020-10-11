@@ -77,7 +77,10 @@ exports.handler = async (event, context, callback) => {
     databaseURL: "https://i-need-a-product-idea.firebaseio.com",
   });
 
-  admin.database.ref().once("value", (snapshot) => {
+  const db = admin.database();
+  const ref = db.ref();
+
+  ref.once("value", (snapshot) => {
     const val = snapshot.val();
 
     // const keys = Object.keys(val);
