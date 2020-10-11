@@ -13,5 +13,5 @@ import { renderTweets } from "./render";
     method: "GET",
   });
 
-  console.log(response);
+  console.log(response.body);
 })();
