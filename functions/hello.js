@@ -93,12 +93,12 @@ exports.handler = async (event, context, callback) => {
     // }
 
     admin.app().delete();
+  });
 
-    return callback(null, {
-      statusCode: 200,
-      body: JSON.stringify({
-        data: "hello there",
-      }),
-    });
+  return callback(null, {
+    statusCode: 200,
+    body: JSON.stringify({
+      data: "hello there",
+    }),
   });
 };
