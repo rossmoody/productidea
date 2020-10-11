@@ -8,10 +8,8 @@ import { renderTweets } from "./render";
 // eventListeners([...data]);
 // })();
 
-(async function init() {
-  const response = await fetch(process.env.INAPI_URL, {
-    method: "GET",
-  });
-
-  console.log(response.body);
+(function init() {
+  fetch(process.env.INAPI_URL, { method: "GET" })
+    .then((response) => response.json())
+    .then((data) => console.log(data));
 })();
