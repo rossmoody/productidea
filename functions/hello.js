@@ -69,7 +69,7 @@ const ref = db.ref();
 const todayRef = db.ref(todaysDate);
 
 exports.handler = async (event, context, callback) => {
-  const data = ref.once("value", (snapshot) => {
+  const data = await ref.once("value", (snapshot) => {
     const val = snapshot.val();
     const keys = Object.keys(val);
 
