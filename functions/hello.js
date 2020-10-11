@@ -71,18 +71,19 @@ const ref = db.ref();
 exports.handler = async (event, context, callback) => {
   ref.on("value", (snapshot) => {
     const val = snapshot.val();
+
     // const keys = Object.keys(val);
     // if (!keys.includes(todaysDate)) {
     //   getData().then((results) => {
     //     todayRef.set(results);
     //   });
     // }
-  });
 
-  return callback(null, {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: JSON.stringify(val),
-    }),
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify({
+        data: JSON.stringify(val),
+      }),
+    });
   });
 };
