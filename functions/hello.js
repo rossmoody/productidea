@@ -116,6 +116,8 @@ exports.handler = async (event, context, callback) => {
 
   return callback(null, {
     statusCode: 200,
-    body: data,
+    body: JSON.stringify({
+      data: data,
+    }),
   });
 };
