@@ -86,10 +86,8 @@ exports.handler = async (event, context, callback) => {
 
   console.log("hello");
 
-  return callback(null, {
+  callback(null, {
     statusCode: 200,
-    body: JSON.stringify({
-      data: `Test data added successfully`,
-    }),
+    body: "Hello, World",
   });
 };
