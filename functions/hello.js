@@ -80,7 +80,7 @@ exports.handler = async (event, context, callback) => {
       //   });
       // }
 
-      return val;
+      return JSON.stringify(val);
     });
   }
 };
