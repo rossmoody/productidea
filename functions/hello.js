@@ -69,7 +69,6 @@ const ref = db.ref();
 // const todayRef = db.ref(todaysDate);
 
 exports.handler = async (event, context, callback) => {
-  let data;
   ref.once("value", (snapshot) => {
     const val = snapshot.val();
 
@@ -80,13 +79,11 @@ exports.handler = async (event, context, callback) => {
     //   });
     // }
 
-    data = val;
-  });
-
-  return callback(null, {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: data,
-    }),
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify({
+        data: "poop",
+      }),
+    });
   });
 };
