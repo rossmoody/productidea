@@ -14,9 +14,6 @@ const creds = {
   client_x509_cert_url: process.env.FIRE_CLIENT_CERT,
 };
 
-// const db = admin.database();
-// const ref = db.ref();
-
 // // // Twitter API creds
 // // const token = process.env.BEARER_TOKEN;
 // // const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
@@ -80,12 +77,26 @@ exports.handler = async (event, context, callback) => {
     databaseURL: "https://i-need-a-product-idea.firebaseio.com",
   });
 
-  admin.app().delete();
+  const db = admin.database();
+  const ref = db.ref();
 
-  return callback(null, {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: "poop",
-    }),
+  ref.once("value", (snapshot) => {
+    const val = snapshot.val();
+
+    // const keys = Object.keys(val);
+    // if (!keys.includes(todaysDate)) {
+    //   getData().then((results) => {
+    //     todayRef.set(results);
+    //   });
+    // }
+
+    admin.app().delete();
+
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify({
+        data: val,
+      }),
+    });
   });
 };
