@@ -80,9 +80,11 @@ exports.handler = async (event, context, callback) => {
     // }
     //   });
 
-    return {
+    return callback(null, {
       statusCode: 200,
-      body: `hi , my twitter is @saphidev`,
-    };
+      body: JSON.stringify({
+        data: `Test data added successfully`,
+      }),
+    });
   }
 };
