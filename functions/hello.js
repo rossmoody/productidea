@@ -79,9 +79,9 @@ const db = admin.database();
 // }
 // });
 
-admin.app().delete();
-
 exports.handler = async (event, context, callback) => {
+  await admin.app().delete();
+
   return callback(null, {
     statusCode: 200,
     body: JSON.stringify({
