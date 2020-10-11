@@ -72,31 +72,33 @@ const creds = {
 // });
 
 exports.handler = async (event, context, callback) => {
-  admin.initializeApp({
-    credential: admin.credential.cert(creds),
-    databaseURL: "https://i-need-a-product-idea.firebaseio.com",
-  });
-
-  const db = admin.database();
-  const ref = db.ref();
-
-  ref.once("value", (snapshot) => {
-    const val = snapshot.val();
-
-    // const keys = Object.keys(val);
-    // if (!keys.includes(todaysDate)) {
-    //   getData().then((results) => {
-    //     todayRef.set(results);
-    //   });
-    // }
-
-    admin.app().delete();
-
-    return callback(null, {
-      statusCode: 200,
-      body: JSON.stringify({
-        data: val,
-      }),
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(creds),
+      databaseURL: "https://i-need-a-product-idea.firebaseio.com",
     });
-  });
+
+    const db = admin.database();
+    const ref = db.ref();
+
+    ref.once("value", (snapshot) => {
+      const val = snapshot.val();
+
+      // const keys = Object.keys(val);
+      // if (!keys.includes(todaysDate)) {
+      //   getData().then((results) => {
+      //     todayRef.set(results);
+      //   });
+      // }
+
+      admin.app().delete();
+
+      return callback(null, {
+        statusCode: 200,
+        body: JSON.stringify({
+          data: val,
+        }),
+      });
+    });
+  }
 };
