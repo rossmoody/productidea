@@ -80,7 +80,7 @@ admin.initializeApp({
 // });
 
 exports.handler = async (event, context, callback) => {
-  await admin.app().delete();
+  admin.app().delete();
 
   return callback(null, {
     statusCode: 200,
