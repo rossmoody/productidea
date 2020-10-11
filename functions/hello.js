@@ -1,4 +1,3 @@
-const express = require("express");
 const admin = require("firebase-admin");
 const needle = require("needle");
 
@@ -48,11 +47,6 @@ async function getData() {
     process.exit(-1);
   }
 }
-
-// Server
-const app = express();
-app.listen(3000, () => console.log("Server is listening on port 3000"));
-app.use(express.static("local"));
 
 // Firebase
 admin.initializeApp({
