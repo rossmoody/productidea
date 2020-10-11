@@ -70,17 +70,19 @@ const todayRef = db.ref(todaysDate);
 
 exports.handler = async (event, context, callback) => {
   if (event.httpMethod == "GET") {
-    ref.on("value", (snapshot) => {
-      const val = snapshot.val();
-      // const keys = Object.keys(val);
+    // ref.on("value", (snapshot) => {
+    //   const val = snapshot.val();
+    // const keys = Object.keys(val);
+    // if (!keys.includes(todaysDate)) {
+    //   getData().then((results) => {
+    //     todayRef.set(results);
+    //   });
+    // }
+    //   });
 
-      // if (!keys.includes(todaysDate)) {
-      //   getData().then((results) => {
-      //     todayRef.set(results);
-      //   });
-      // }
-
-      return JSON.stringify(val);
-    });
+    return {
+      statusCode: 200,
+      body: `hi , my twitter is @saphidev`,
+    };
   }
 };
