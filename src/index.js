@@ -10,7 +10,8 @@ import { renderTweets } from "./render";
 
 (async function init() {
   const response = await fetch(process.env.INAPI_URL);
-  const json = await response.json();
+  // const json = await response.json();
 
-  renderTweets(json);
+  // renderTweets(json);
+  console.log(response);
 })();
