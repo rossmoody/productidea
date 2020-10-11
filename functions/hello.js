@@ -80,7 +80,7 @@ exports.handler = async (event, context, callback) => {
       //   });
       // }
 
-      return callback(null, {
+      callback(null, {
         statusCode: 200,
         body: JSON.stringify(val),
       });
