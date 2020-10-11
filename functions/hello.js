@@ -84,10 +84,10 @@ exports.handler = async (event, context, callback) => {
     return val;
   });
 
-  console.log("hello");
-
   callback(null, {
     statusCode: 200,
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      result: data,
+    }),
   });
 };
