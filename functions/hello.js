@@ -68,22 +68,22 @@ const db = admin.database();
 const ref = db.ref();
 // const todayRef = db.ref(todaysDate);
 
+// ref.once("value", (snapshot) => {
+//   const val = snapshot.val();
+
+// const keys = Object.keys(val);
+// if (!keys.includes(todaysDate)) {
+//   getData().then((results) => {
+//     todayRef.set(results);
+//   });
+// }
+// });
+
 exports.handler = async (event, context, callback) => {
-  ref.once("value", (snapshot) => {
-    const val = snapshot.val();
-
-    // const keys = Object.keys(val);
-    // if (!keys.includes(todaysDate)) {
-    //   getData().then((results) => {
-    //     todayRef.set(results);
-    //   });
-    // }
-
-    return callback(null, {
-      statusCode: 200,
-      body: JSON.stringify({
-        data: "poop",
-      }),
-    });
+  return callback(null, {
+    statusCode: 200,
+    body: JSON.stringify({
+      data: "poop",
+    }),
   });
 };
