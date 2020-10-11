@@ -12,9 +12,8 @@ import { renderTweets } from "./render";
   const response = await fetch(process.env.INAPI_URL, {
     method: "GET",
   });
-
+  const text = await response.text();
+  console.log(text);
   const json = await response.json();
-
   console.log(json);
-  console.log(json.body);
 })();
