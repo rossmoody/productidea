@@ -79,10 +79,11 @@ exports.handler = async (event, context, callback) => {
     });
   }
 
+  let val;
   const db = admin.database();
   const ref = db.ref();
 
-  ref.once("value", (snapshot) => {
+  const data = await ref.once("value", (snapshot) => {
     const val = snapshot.val();
 
     // const keys = Object.keys(val);
@@ -92,13 +93,15 @@ exports.handler = async (event, context, callback) => {
     //   });
     // }
 
-    admin.app().delete();
+    return val;
   });
+
+  admin.app().delete();
 
   return callback(null, {
     statusCode: 200,
     body: JSON.stringify({
-      data: "hello there",
+      data: data,
     }),
   });
 };
