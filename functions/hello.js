@@ -14,11 +14,6 @@ const creds = {
   client_x509_cert_url: process.env.FIRE_CLIENT_CERT,
 };
 
-admin.initializeApp({
-  credential: admin.credential.cert(creds),
-  databaseURL: "https://i-need-a-product-idea.firebaseio.com",
-});
-
 // const db = admin.database();
 // const ref = db.ref();
 
@@ -80,6 +75,11 @@ admin.initializeApp({
 // });
 
 exports.handler = async (event, context, callback) => {
+  admin.initializeApp({
+    credential: admin.credential.cert(creds),
+    databaseURL: "https://i-need-a-product-idea.firebaseio.com",
+  });
+
   admin.app().delete();
 
   return callback(null, {
