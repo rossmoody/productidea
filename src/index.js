@@ -8,14 +8,13 @@ import { eventListeners } from "./event-listeners";
 
   const massiveArrayOfTweetObjects = [];
 
-  for (const dayArr in json) {
+  const netlifyJson = json.data;
+
+  for (const dayArr in netlifyJson) {
     json[dayArr].forEach((entry) => {
       massiveArrayOfTweetObjects.push(entry);
     });
   }
 
   eventListeners(massiveArrayOfTweetObjects);
-
-  // // Need to target data property in Netlify
-  // console.log(json.data);
 })();
