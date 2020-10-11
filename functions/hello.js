@@ -18,11 +18,23 @@ const creds = {
 const token = process.env.BEARER_TOKEN;
 const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
 
-// Get data from Twitter
-async function getTweets() {
+// Queries
+const queries = [
+  {
+    string: `"I wish someone would make"`,
+    query_id: "i-wish-someone-would-make",
+  },
+  {
+    string: `"great app idea"`,
+    query_id: "great-app-idea",
+  },
+];
+
+async function getQuery(query, latestId) {
   const params = {
-    query: "I wish someone would make",
+    query: query.string,
     "tweet.fields": "public_metrics,created_at",
+    since_id: latestId,
   };
 
   const res = await needle("get", endpointUrl, params, {
@@ -38,14 +50,19 @@ async function getTweets() {
   }
 }
 
-async function getData() {
-  try {
-    const response = await getTweets();
-    return response;
-  } catch (e) {
-    console.log(e);
-    process.exit(-1);
-  }
+async function getTweets(latestId) {
+  // TODO: Only return results with atleast 1 like
+  const init = queries.map(async (param) => {
+    const response = await getQuery(param, latestId);
+    response.data.forEach((element) => {
+      element.query_id = param.query_id;
+    });
+
+    return response.data;
+  });
+
+  const data = await Promise.all(init);
+  return data;
 }
 
 function getDate() {
@@ -75,8 +92,20 @@ exports.handler = async (event, context, callback) => {
     const keys = Object.keys(val);
 
     if (!keys.includes(todaysDate)) {
-      getData().then((results) => {
-        todayRef.set(results);
+      // Find latest Tweet ID for fetching
+      const lastTweet = val[todaysDate].slice(-1)[0];
+      const lastTweetId = lastTweet.id;
+
+      getTweets(lastTweetId).then((results) => {
+        const dayArr = [];
+
+        results.forEach((queryArr) => {
+          queryArr.forEach((tweet) => {
+            dayArr.push(tweet);
+          });
+        });
+
+        todayRef.set(dayArr);
       });
     }
 

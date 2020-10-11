@@ -9,17 +9,10 @@ export function renderTweets(tweets) {
   newTweetCont.setAttribute("id", "tweet-container");
   container.appendChild(newTweetCont);
 
-  for (const day in tweets) {
-    const obj = tweets[day];
-    const tweetArr = obj.data;
-    console.log(tweetArr);
-
-    tweetArr &&
-      tweetArr.forEach((tweet) => {
-        twttr.widgets.createTweet(`${tweet.id}`, newTweetCont, {
-          conversation: "none",
-          cards: "hidden",
-        });
-      });
-  }
+  tweets.forEach((tweet) => {
+    twttr.widgets.createTweet(`${tweet.id}`, newTweetCont, {
+      conversation: "none",
+      cards: "hidden",
+    });
+  });
 }

@@ -2,6 +2,11 @@ const express = require("express");
 const admin = require("firebase-admin");
 const needle = require("needle");
 
+// Server
+const app = express();
+app.listen(3000, () => console.log("Server is listening on port 3000"));
+app.use(express.static("local"));
+
 const creds = {
   type: process.env.FIRE_TYPE,
   project_id: process.env.FIRE_PROJECT_ID,
@@ -19,11 +24,23 @@ const creds = {
 const token = process.env.BEARER_TOKEN;
 const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
 
-// Get data from Twitter
-async function getTweets() {
+// Queries
+const queries = [
+  {
+    string: `"I wish someone would make"`,
+    query_id: "i-wish-someone-would-make",
+  },
+  {
+    string: `"great app idea"`,
+    query_id: "great-app-idea",
+  },
+];
+
+async function getQuery(query, latestId) {
   const params = {
-    query: "I wish someone would make",
+    query: query.string,
     "tweet.fields": "public_metrics,created_at",
+    since_id: latestId,
   };
 
   const res = await needle("get", endpointUrl, params, {
@@ -39,20 +56,20 @@ async function getTweets() {
   }
 }
 
-async function getData() {
-  try {
-    const response = await getTweets();
-    return response;
-  } catch (e) {
-    console.log(e);
-    process.exit(-1);
-  }
-}
+async function getTweets(latestId) {
+  // TODO: Only return results with atleast 1 like
+  const init = queries.map(async (param) => {
+    const response = await getQuery(param, latestId);
+    response.data.forEach((element) => {
+      element.query_id = param.query_id;
+    });
 
-// Server
-const app = express();
-app.listen(3000, () => console.log("Server is listening on port 3000"));
-app.use(express.static("local"));
+    return response.data;
+  });
+
+  const data = await Promise.all(init);
+  return data;
+}
 
 // Firebase
 admin.initializeApp({
@@ -79,9 +96,22 @@ app.get("/.netlify/functions/hello", function (req, res) {
     const val = snapshot.val();
     const keys = Object.keys(val);
 
+    // If request hasn't been made today, getTweets and push to database
     if (!keys.includes(todaysDate)) {
-      getData().then((results) => {
-        todayRef.set(results);
+      // Find latest Tweet ID for fetching
+      const lastTweet = val[todaysDate].slice(-1)[0];
+      const lastTweetId = lastTweet.id;
+
+      getTweets(lastTweetId).then((results) => {
+        const dayArr = [];
+
+        results.forEach((queryArr) => {
+          queryArr.forEach((tweet) => {
+            dayArr.push(tweet);
+          });
+        });
+
+        todayRef.set(dayArr);
       });
     }
 

@@ -29,7 +29,7 @@
                 Great app idea
               </label>
             </div>
-            <div>
+            <!-- <div>
               <label>
                 <input type="checkbox" id="great-product-idea" checked />
                 Great product idea
@@ -64,7 +64,7 @@
                 <input type="checkbox" id="wouldnt-it-be-awesome-if" checked />
                 Wouldn't it be awesome if...
               </label>
-            </div>
+            </div> -->
           </fieldset>
           <fieldset>
             <legend>Hashtags</legend>
@@ -80,11 +80,11 @@
             <div>
               <label for="min-likes">Minimum likes</label>
               <select id="min-likes" name="min-likes" id="min-likes">
-                <option value="1">1</option>
+                <option value="1" selected="selected">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-                <option value="5" selected="selected">5</option>
+                <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
@@ -126,8 +126,8 @@
       <section id="tweet-section">
         <label for="sort" class="visuallyhidden">Sort results by</label>
         <select id="sort" name="sort">
+          <option value="retweets" selected="selected">Most retweets</option>
           <option value="likes">Most likes</option>
-          <option value="retweets">Most retweets</option>
           <option value="recent">Most recent</option>
         </select>
         <div id="container">

@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel watch index.html -d local/",
+    "dev": "nodemon server.js",
     "build": "npm install && npm run official",
     "official": "parcel build index.html --no-source-maps --public-url ./ -d public/"
   },
@@ -23,6 +24,7 @@
     "firebase-admin": "^9.2.0",
     "got": "^11.7.0",
     "needle": "^2.5.2",
+    "nodemon": "^2.0.4",
     "oauth-1.0a": "^2.2.6",
     "parcel": "^1.12.4",
     "path": "^0.12.7",

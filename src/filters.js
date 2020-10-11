@@ -8,7 +8,14 @@ export function applyFilters(filterParams, tweets) {
     return tweet.public_metrics.retweet_count >= filterParams.retweets;
   }
 
-  const filteredResults = tweets.filter(filterLikes).filter(filterRetweets);
+  function filterPhrase(tweet) {
+    return filterParams.phrases[tweet.query_id];
+  }
+
+  const filteredResults = tweets
+    .filter(filterLikes)
+    .filter(filterRetweets)
+    .filter(filterPhrase);
 
   // Sorting logic
   let sortBy;
@@ -22,8 +29,9 @@ export function applyFilters(filterParams, tweets) {
   }
 
   const sortedResults = filteredResults.sort(function (a, b) {
-    if (sortBy) return b.public_metrics[sortBy] - a.public_metrics[sortBy];
+    return b.public_metrics[sortBy] - a.public_metrics[sortBy];
   });
 
+  console.log(sortedResults);
   return sortedResults;
 }

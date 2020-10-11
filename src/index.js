@@ -1,15 +1,21 @@
 import { renderTweets } from "./render";
-
-// (async function init() {
-// getData();
-// renderTweets(
-//   applyFilters({ likes: 2, retweets: 0, sortBy: "likes" }, [...data])
-// );
-// eventListeners([...data]);
-// })();
+import { applyFilters } from "./filters";
+import { eventListeners } from "./event-listeners";
 
 (async function init() {
   const response = await fetch(process.env.INAPI_URL);
   const json = await response.json();
-  console.log(json.data);
+
+  const massiveArrayOfTweetObjects = [];
+
+  for (const dayArr in json) {
+    json[dayArr].forEach((entry) => {
+      massiveArrayOfTweetObjects.push(entry);
+    });
+  }
+
+  eventListeners(massiveArrayOfTweetObjects);
+
+  // // Need to target data property in Netlify
+  // console.log(json.data);
 })();
