@@ -19,7 +19,7 @@ admin.initializeApp({
   databaseURL: "https://i-need-a-product-idea.firebaseio.com",
 });
 
-const db = admin.database();
+// const db = admin.database();
 // const ref = db.ref();
 
 // // // Twitter API creds
