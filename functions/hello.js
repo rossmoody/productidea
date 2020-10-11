@@ -73,8 +73,6 @@ exports.handler = async (event, context, callback) => {
     const val = snapshot.val();
     const keys = Object.keys(val);
 
-    console.log(keys);
-
     // if (!keys.includes(todaysDate)) {
     //   getData().then((results) => {
     //     todayRef.set(results);
@@ -84,7 +82,7 @@ exports.handler = async (event, context, callback) => {
     return val;
   });
 
-  callback(null, {
+  return callback(null, {
     statusCode: 200,
     body: JSON.stringify({
       result: data,
