@@ -75,7 +75,7 @@ const ref = db.ref();
 const todayRef = db.ref(todaysDate);
 
 exports.handler = async (event, context, callback) => {
-  await ref.once("value", (snapshot) => {
+  const data = await ref.once("value", (snapshot) => {
     const val = snapshot.val();
     const keys = Object.keys(val);
 
@@ -85,9 +85,11 @@ exports.handler = async (event, context, callback) => {
       });
     }
 
-    return callback(null, {
-      statusCode: 200,
-      body: val,
-    });
+    return val;
+  });
+
+  return callback(null, {
+    statusCode: 200,
+    body: data,
   });
 };
