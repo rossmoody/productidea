@@ -1,7 +1,5 @@
 const express = require("express");
 const admin = require("firebase-admin");
-const needle = require("needle");
-const schedule = require("node-schedule");
 
 // Server
 const app = express();
@@ -21,56 +19,6 @@ const creds = {
   client_x509_cert_url: process.env.FIRE_CLIENT_CERT,
 };
 
-// Twitter API creds
-const token = process.env.BEARER_TOKEN;
-const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
-
-// Queries
-const queries = [
-  {
-    string: `"I wish someone would make"`,
-    query_id: "i-wish-someone-would-make",
-  },
-  {
-    string: `"great app idea"`,
-    query_id: "great-app-idea",
-  },
-];
-
-async function getQuery(query, time) {
-  const params = {
-    query: query.string,
-    "tweet.fields": "public_metrics,created_at",
-    start_time: time,
-  };
-
-  const res = await needle("get", endpointUrl, params, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (res.body) {
-    return res.body;
-  } else {
-    throw new Error("Unsuccessful request");
-  }
-}
-
-async function getTweets() {
-  const init = queries.map(async (param, time) => {
-    const response = await getQuery(param, time);
-    response.data.forEach((element) => {
-      element.query_id = param.query_id;
-    });
-
-    return response.data;
-  });
-
-  const data = await Promise.all(init);
-  return data;
-}
-
 // Firebase
 admin.initializeApp({
   credential: admin.credential.cert(creds),
@@ -84,29 +32,5 @@ app.get("/.netlify/functions/hello", function (req, res) {
   ref.once("value", (snapshot) => {
     const val = snapshot.val();
     res.send(JSON.stringify(val));
-  });
-});
-
-// Scheduling DB pushes
-const rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [new schedule.Range(0, 6)];
-rule.hour = 20;
-rule.minute = 30;
-
-schedule.scheduleJob(rule, () => {
-  const now = new Date(Date.now()).toISOString();
-  const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
-  const todayRef = db.ref(now);
-
-  getTweets(yesterday).then((results) => {
-    const dayArr = [];
-
-    results.forEach((queryArr) => {
-      queryArr.forEach((tweet) => {
-        dayArr.push(tweet);
-      });
-    });
-
-    todayRef.set(dayArr);
   });
 });
