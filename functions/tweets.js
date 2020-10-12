@@ -5,6 +5,19 @@ const needle = require("needle");
 const token = process.env.BEARER_TOKEN;
 const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
 
+const creds = {
+  type: process.env.FIRE_TYPE,
+  project_id: process.env.FIRE_PROJECT_ID,
+  private_key_id: process.env.FIRE_PRIVATE_KEY_ID,
+  private_key: process.env.FIRE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+  client_email: process.env.FIRE_CLIENT_EMAIL,
+  client_id: process.env.FIRE_CLIENT_ID,
+  auth_uri: process.env.FIRE_AUTH_URI,
+  token_uri: process.env.FIRE_TOKEN_URI,
+  auth_provider_x509_cert_url: process.env.FIRE_AUTH_PROVIDER,
+  client_x509_cert_url: process.env.FIRE_CLIENT_CERT,
+};
+
 // Queries
 const queries = [
   {
@@ -42,9 +55,10 @@ async function getTweets() {
     const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
 
     const response = await getQuery(param, yesterday);
-    response.data.forEach((element) => {
-      element.query_id = param.query_id;
-    });
+    response &&
+      response.data.forEach((element) => {
+        element.query_id = param.query_id;
+      });
 
     return response.data;
   });
@@ -62,26 +76,14 @@ function getDate() {
 }
 
 // Firebase
-const creds = {
-  type: process.env.FIRE_TYPE,
-  project_id: process.env.FIRE_PROJECT_ID,
-  private_key_id: process.env.FIRE_PRIVATE_KEY_ID,
-  private_key: process.env.FIRE_PRIVATE_KEY.replace(/\\n/g, "\n"),
-  client_email: process.env.FIRE_CLIENT_EMAIL,
-  client_id: process.env.FIRE_CLIENT_ID,
-  auth_uri: process.env.FIRE_AUTH_URI,
-  token_uri: process.env.FIRE_TOKEN_URI,
-  auth_provider_x509_cert_url: process.env.FIRE_AUTH_PROVIDER,
-  client_x509_cert_url: process.env.FIRE_CLIENT_CERT,
-};
-
 admin.initializeApp({
   credential: admin.credential.cert(creds),
   databaseURL: "https://i-need-a-product-idea.firebaseio.com",
 });
 
+const today = getDate();
 const db = admin.database();
-const todayRef = db.ref(getDate());
+const todayRef = db.ref(today);
 
 exports.handler = async (event, context, callback) => {
   getTweets().then((results) => {
