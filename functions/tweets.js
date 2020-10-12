@@ -78,12 +78,12 @@ function getDate() {
 const today = getDate();
 
 exports.handler = async (event, context, callback) => {
-  try {
+  if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert(creds),
       databaseURL: "https://i-need-a-product-idea.firebaseio.com",
     });
-  } catch (e) {}
+  }
 
   const db = admin.database();
   const todayRef = db.ref(today);
