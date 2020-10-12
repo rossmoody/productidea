@@ -110,6 +110,6 @@ app.get("/.netlify/functions/hello", function (req, res) {
       });
     }
 
-    res.send(val);
+    res.send(JSON.stringify(val));
   });
 });
