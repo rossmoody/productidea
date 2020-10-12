@@ -1,5 +1,5 @@
-// const needle = require("needle");
 var schedule = require("node-schedule");
+// const needle = require("needle");
 
 // // Twitter API creds
 // const token = process.env.BEARER_TOKEN;
@@ -71,6 +71,7 @@ exports.handler = async (event, context, callback) => {
   schedule.scheduleJob("10 * * * * *", function () {
     console.log("The answer to life, the universe, and everything!");
   });
+  console.log("test");
 
   return callback(null, {
     statusCode: 200,
