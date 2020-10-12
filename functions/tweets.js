@@ -30,11 +30,10 @@ const queries = [
   },
 ];
 
-async function getQuery(query, time) {
+async function getQuery(query) {
   const params = {
     query: query.string,
     "tweet.fields": "public_metrics,created_at",
-    start_time: time,
   };
 
   const res = await needle("get", endpointUrl, params, {
@@ -52,9 +51,9 @@ async function getQuery(query, time) {
 
 async function getTweets() {
   const init = queries.map(async (string) => {
-    const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
+    // const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
 
-    const response = await getQuery(string, yesterday);
+    const response = await getQuery(string);
 
     response.data.forEach((element) => {
       element.query_id = param.query_id;
