@@ -53,7 +53,13 @@ async function getTweets() {
   return data;
 }
 
-const now = new Date(Date.now()).toISOString();
+function getDate() {
+  const dateObj = new Date();
+  const month = dateObj.getUTCMonth() + 1;
+  const day = dateObj.getUTCDate();
+  const year = dateObj.getUTCFullYear();
+  return year + "-" + month + "-" + day + "-tweetsssss";
+}
 
 // Firebase
 const creds = {
@@ -75,7 +81,7 @@ admin.initializeApp({
 });
 
 const db = admin.database();
-const todayRef = db.ref(now);
+const todayRef = db.ref(getDate());
 
 exports.handler = async (event, context, callback) => {
   getTweets().then((results) => {
