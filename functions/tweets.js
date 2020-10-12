@@ -51,10 +51,10 @@ async function getQuery(query, time) {
 }
 
 async function getTweets() {
-  const init = queries.map(async (param) => {
+  const init = queries.map(async (string) => {
     const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
 
-    const response = await getQuery(param, yesterday);
+    const response = await getQuery(string, yesterday);
 
     response &&
       response.data.forEach((element) => {
@@ -76,17 +76,18 @@ function getDate() {
   return year + "-" + month + "-" + day + "-tweetsssss";
 }
 
-// Firebase
-admin.initializeApp({
-  credential: admin.credential.cert(creds),
-  databaseURL: "https://i-need-a-product-idea.firebaseio.com",
-});
-
 const today = getDate();
 const db = admin.database();
 const todayRef = db.ref(today);
 
 exports.handler = async (event, context, callback) => {
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(creds),
+      databaseURL: "https://i-need-a-product-idea.firebaseio.com",
+    });
+  }
+
   getTweets().then((results) => {
     const dayArr = [];
 
@@ -97,5 +98,14 @@ exports.handler = async (event, context, callback) => {
     });
 
     todayRef.set(dayArr);
+  });
+
+  admin.app().delete();
+
+  return callback(null, {
+    statusCode: 200,
+    body: JSON.stringify({
+      data: data,
+    }),
   });
 };
