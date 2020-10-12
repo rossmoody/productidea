@@ -56,10 +56,9 @@ async function getTweets() {
 
     const response = await getQuery(string, yesterday);
 
-    response &&
-      response.data.forEach((element) => {
-        element.query_id = param.query_id;
-      });
+    response.data.forEach((element) => {
+      element.query_id = param.query_id;
+    });
 
     return response.data;
   });
