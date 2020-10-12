@@ -1,4 +1,4 @@
-const schedule = require("node-schedule");
+// const schedule = require("node-schedule");
 // const needle = require("needle");
 
 // // Twitter API creds
@@ -68,9 +68,9 @@ const schedule = require("node-schedule");
 // });
 
 exports.handler = async (event, context, callback) => {
-  schedule.scheduleJob("10 * * * * *", function () {
-    console.log("The answer to life, the universe, and everything!");
-  });
+  // schedule.scheduleJob("10 * * * * *", function () {
+  //   console.log("The answer to life, the universe, and everything!");
+  // });
   console.log("test");
 
   return callback(null, {
