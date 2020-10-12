@@ -65,6 +65,8 @@ async function getTweets() {
 }
 
 exports.handler = async (event, context, callback) => {
+  console.log(event);
+
   // Firebase
   if (!admin.apps.length) {
     admin.initializeApp({

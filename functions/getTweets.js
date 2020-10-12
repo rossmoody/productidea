@@ -13,5 +13,3 @@
 
 //   todayRef.set(dayArr);
 // });
-
-console.log("This is working");
