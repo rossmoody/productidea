@@ -76,8 +76,6 @@ function getDate() {
 }
 
 const today = getDate();
-const db = admin.database();
-const todayRef = db.ref(today);
 
 exports.handler = async (event, context, callback) => {
   try {
@@ -86,6 +84,9 @@ exports.handler = async (event, context, callback) => {
       databaseURL: "https://i-need-a-product-idea.firebaseio.com",
     });
   } catch (e) {}
+
+  const db = admin.database();
+  const todayRef = db.ref(today);
 
   getTweets().then((results) => {
     const dayArr = [];
