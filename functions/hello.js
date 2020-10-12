@@ -1,5 +1,6 @@
 const admin = require("firebase-admin");
 const needle = require("needle");
+const schedule = require("node-schedule");
 
 const creds = {
   type: process.env.FIRE_TYPE,
@@ -30,11 +31,11 @@ const queries = [
   },
 ];
 
-async function getQuery(query, latestId) {
+async function getQuery(query, time) {
   const params = {
     query: query.string,
     "tweet.fields": "public_metrics,created_at",
-    since_id: latestId,
+    start_time: time,
   };
 
   const res = await needle("get", endpointUrl, params, {
@@ -50,10 +51,9 @@ async function getQuery(query, latestId) {
   }
 }
 
-async function getTweets(latestId) {
-  // TODO: Only return results with atleast 1 like
-  const init = queries.map(async (param) => {
-    const response = await getQuery(param, latestId);
+async function getTweets() {
+  const init = queries.map(async (param, time) => {
+    const response = await getQuery(param, time);
     response.data.forEach((element) => {
       element.query_id = param.query_id;
     });
@@ -65,17 +65,8 @@ async function getTweets(latestId) {
   return data;
 }
 
-function getDate() {
-  const dateObj = new Date();
-  const month = dateObj.getUTCMonth() + 1;
-  const day = dateObj.getUTCDate();
-  const year = dateObj.getUTCFullYear();
-  return year + "-" + month + "-" + day + "-tweets";
-}
-
-const todaysDate = getDate();
-
 exports.handler = async (event, context, callback) => {
+  // Firebase
   if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert(creds),
@@ -85,30 +76,9 @@ exports.handler = async (event, context, callback) => {
 
   const db = admin.database();
   const ref = db.ref();
-  const todayRef = db.ref(todaysDate);
 
   const data = await ref.once("value", (snapshot) => {
     const val = snapshot.val();
-    const keys = Object.keys(val);
-
-    if (!keys.includes(todaysDate)) {
-      // Find latest Tweet ID for fetching
-      const lastTweet = val[todaysDate].slice(-1)[0];
-      const lastTweetId = lastTweet.id;
-
-      getTweets(lastTweetId).then((results) => {
-        const dayArr = [];
-
-        results.forEach((queryArr) => {
-          queryArr.forEach((tweet) => {
-            dayArr.push(tweet);
-          });
-        });
-
-        todayRef.set(dayArr);
-      });
-    }
-
     return val;
   });
 
@@ -121,3 +91,27 @@ exports.handler = async (event, context, callback) => {
     }),
   });
 };
+
+// Scheduling DB pushes
+const rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [new schedule.Range(0, 6)];
+rule.hour = 20;
+rule.minute = 30;
+
+schedule.scheduleJob(rule, () => {
+  const now = new Date(Date.now()).toISOString();
+  const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
+  const todayRef = db.ref(now);
+
+  getTweets(yesterday).then((results) => {
+    const dayArr = [];
+
+    results.forEach((queryArr) => {
+      queryArr.forEach((tweet) => {
+        dayArr.push(tweet);
+      });
+    });
+
+    todayRef.set(dayArr);
+  });
+});

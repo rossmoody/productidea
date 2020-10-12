@@ -4,9 +4,10 @@ import { applyFilters } from "./filters";
 export function eventListeners(tweets) {
   // Filter paramater object
   const filterParams = {
-    likes: 0,
+    likes: 1,
     retweets: 0,
-    sortBy: "retweets",
+    sortBy: "retweets", // likes, recent
+    time: "daily", // weekly, monthly, yearly
     phrases: {},
     hashtags: {
       inapi: false,
@@ -36,6 +37,7 @@ export function eventListeners(tweets) {
   const minLikes = document.getElementById("min-likes");
   const minRetweets = document.getElementById("min-retweets");
   const sortBy = document.getElementById("sort");
+  const time = document.getElementById("dates");
 
   // Event listeners
   minLikes.addEventListener("change", (event) => {
@@ -50,6 +52,12 @@ export function eventListeners(tweets) {
 
   sortBy.addEventListener("change", (event) => {
     filterParams.sortBy = event.target.value;
+    renderTweets(applyFilters(filterParams, tweets));
+  });
+
+  time.addEventListener("change", (event) => {
+    console.log(event.target.value);
+    filterParams.time = event.target.value;
     renderTweets(applyFilters(filterParams, tweets));
   });
 

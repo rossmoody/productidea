@@ -1,6 +1,7 @@
 const express = require("express");
 const admin = require("firebase-admin");
 const needle = require("needle");
+const schedule = require("node-schedule");
 
 // Server
 const app = express();
@@ -36,10 +37,11 @@ const queries = [
   },
 ];
 
-async function getQuery(query) {
+async function getQuery(query, time) {
   const params = {
     query: query.string,
     "tweet.fields": "public_metrics,created_at",
+    start_time: time,
   };
 
   const res = await needle("get", endpointUrl, params, {
@@ -56,9 +58,8 @@ async function getQuery(query) {
 }
 
 async function getTweets() {
-  // TODO: Only return results with atleast 1 like
-  const init = queries.map(async (param) => {
-    const response = await getQuery(param);
+  const init = queries.map(async (param, time) => {
+    const response = await getQuery(param, time);
     response.data.forEach((element) => {
       element.query_id = param.query_id;
     });
@@ -76,40 +77,36 @@ admin.initializeApp({
   databaseURL: "https://i-need-a-product-idea.firebaseio.com",
 });
 
-function getDate() {
-  const dateObj = new Date();
-  const month = dateObj.getUTCMonth() + 1;
-  const day = dateObj.getUTCDate();
-  const year = dateObj.getUTCFullYear();
-  return year + "-" + month + "-" + day + "-tweets";
-}
-
-const todaysDate = getDate();
-
 const db = admin.database();
 const ref = db.ref();
-const todayRef = db.ref(todaysDate);
 
 app.get("/.netlify/functions/hello", function (req, res) {
   ref.once("value", (snapshot) => {
     const val = snapshot.val();
-    const keys = Object.keys(val);
-
-    // If request hasn't been made today, getTweets and push to database
-    if (!keys.includes(todaysDate)) {
-      getTweets().then((results) => {
-        const dayArr = [];
-
-        results.forEach((queryArr) => {
-          queryArr.forEach((tweet) => {
-            dayArr.push(tweet);
-          });
-        });
-
-        todayRef.set(dayArr);
-      });
-    }
-
     res.send(JSON.stringify(val));
+  });
+});
+
+// Scheduling DB pushes
+const rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [new schedule.Range(0, 6)];
+rule.hour = 20;
+rule.minute = 30;
+
+schedule.scheduleJob(rule, () => {
+  const now = new Date(Date.now()).toISOString();
+  const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
+  const todayRef = db.ref(now);
+
+  getTweets(yesterday).then((results) => {
+    const dayArr = [];
+
+    results.forEach((queryArr) => {
+      queryArr.forEach((tweet) => {
+        dayArr.push(tweet);
+      });
+    });
+
+    todayRef.set(dayArr);
   });
 });
