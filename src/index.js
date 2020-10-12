@@ -8,7 +8,10 @@ import { eventListeners } from "./event-listeners";
   // Netlify function
   const netlifyJson = json.data;
   for (const dayObj in netlifyJson) {
-    massiveArrayOfTweetObjects.push(Object.values(netlifyJson[dayObj]));
+    const values = Object.values(netlifyJson[dayObj]);
+    values.forEach((entry) => {
+      massiveArrayOfTweetObjects.push(entry);
+    });
   }
 
   // // Local function
@@ -17,6 +20,7 @@ import { eventListeners } from "./event-listeners";
   //     massiveArrayOfTweetObjects.push(entry);
   //   });
   // }
+
   console.log(massiveArrayOfTweetObjects);
   eventListeners(massiveArrayOfTweetObjects);
 })();
