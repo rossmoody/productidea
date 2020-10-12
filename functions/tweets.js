@@ -54,6 +54,13 @@ async function getTweets() {
 }
 
 const now = new Date(Date.now()).toISOString();
+
+// Firebase
+admin.initializeApp({
+  credential: admin.credential.cert(creds),
+  databaseURL: "https://i-need-a-product-idea.firebaseio.com",
+});
+
 const db = admin.database();
 const todayRef = db.ref(now);
 
