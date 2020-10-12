@@ -66,6 +66,30 @@ async function getTweets() {
 }
 
 exports.handler = async (event, context, callback) => {
+  // Scheduling DB pushes
+  const rule = new schedule.RecurrenceRule();
+  rule.dayOfWeek = [new schedule.Range(0, 6)];
+  rule.hour = 20;
+  rule.minute = 30;
+
+  schedule.scheduleJob(rule, () => {
+    const now = new Date(Date.now()).toISOString();
+    const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
+    const todayRef = db.ref(now);
+
+    getTweets(yesterday).then((results) => {
+      const dayArr = [];
+
+      results.forEach((queryArr) => {
+        queryArr.forEach((tweet) => {
+          dayArr.push(tweet);
+        });
+      });
+
+      todayRef.set(dayArr);
+    });
+  });
+
   // Firebase
   if (!admin.apps.length) {
     admin.initializeApp({
@@ -91,27 +115,3 @@ exports.handler = async (event, context, callback) => {
     }),
   });
 };
-
-// Scheduling DB pushes
-// const rule = new schedule.RecurrenceRule();
-// rule.dayOfWeek = [new schedule.Range(0, 6)];
-// rule.hour = 20;
-// rule.minute = 30;
-
-// schedule.scheduleJob(rule, () => {
-//   const now = new Date(Date.now()).toISOString();
-//   const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
-//   const todayRef = db.ref(now);
-
-//   getTweets(yesterday).then((results) => {
-//     const dayArr = [];
-
-//     results.forEach((queryArr) => {
-//       queryArr.forEach((tweet) => {
-//         dayArr.push(tweet);
-//       });
-//     });
-
-//     todayRef.set(dayArr);
-//   });
-// });
