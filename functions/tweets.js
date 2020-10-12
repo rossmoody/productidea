@@ -1,82 +1,70 @@
-// const schedule = require("node-schedule");
-// const needle = require("needle");
+const needle = require("needle");
 
-// // Twitter API creds
-// const token = process.env.BEARER_TOKEN;
-// const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
+// Twitter API creds
+const token = process.env.BEARER_TOKEN;
+const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
 
-// // Queries
-// const queries = [
-//   {
-//     string: `"I wish someone would make"`,
-//     query_id: "i-wish-someone-would-make",
-//   },
-//   {
-//     string: `"great app idea"`,
-//     query_id: "great-app-idea",
-//   },
-// ];
+// Queries
+const queries = [
+  {
+    string: `"I wish someone would make"`,
+    query_id: "i-wish-someone-would-make",
+  },
+  {
+    string: `"great app idea"`,
+    query_id: "great-app-idea",
+  },
+];
 
-// async function getQuery(query, time) {
-//   const params = {
-//     query: query.string,
-//     "tweet.fields": "public_metrics,created_at",
-//     start_time: time,
-//   };
+async function getQuery(query, time) {
+  const params = {
+    query: query.string,
+    "tweet.fields": "public_metrics,created_at",
+    start_time: time,
+  };
 
-//   const res = await needle("get", endpointUrl, params, {
-//     headers: {
-//       authorization: `Bearer ${token}`,
-//     },
-//   });
+  const res = await needle("get", endpointUrl, params, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
 
-//   if (res.body) {
-//     return res.body;
-//   } else {
-//     throw new Error("Unsuccessful request");
-//   }
-// }
+  if (res.body) {
+    return res.body;
+  } else {
+    throw new Error("Unsuccessful request");
+  }
+}
 
-// async function getTweets() {
-//   const init = queries.map(async (param, time) => {
-//     const response = await getQuery(param, time);
-//     response.data.forEach((element) => {
-//       element.query_id = param.query_id;
-//     });
+async function getTweets() {
+  const init = queries.map(async function () {
+    const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
 
-//     return response.data;
-//   });
+    const response = await getQuery(param, yesterday);
+    response.data.forEach((element) => {
+      element.query_id = param.query_id;
+    });
 
-//   const data = await Promise.all(init);
-//   return data;
-// }
+    return response.data;
+  });
 
-// const now = new Date(Date.now()).toISOString();
-// const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
-// const todayRef = db.ref(now);
+  const data = await Promise.all(init);
+  return data;
+}
 
-// getTweets(yesterday).then((results) => {
-//   const dayArr = [];
-
-//   results.forEach((queryArr) => {
-//     queryArr.forEach((tweet) => {
-//       dayArr.push(tweet);
-//     });
-//   });
-
-//   todayRef.set(dayArr);
-// });
+const now = new Date(Date.now()).toISOString();
+const todayRef = db.ref(now);
 
 exports.handler = async (event, context, callback) => {
-  // schedule.scheduleJob("10 * * * * *", function () {
-  //   console.log("The answer to life, the universe, and everything!");
-  // });
-  console.log("test");
+  getTweets().then((results) => {
+    const dayArr = [];
 
-  return callback(null, {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: "This might be working",
-    }),
+    results.forEach((queryArr) => {
+      queryArr.forEach((tweet) => {
+        dayArr.push(tweet);
+      });
+    });
+
+    todayRef.set(dayArr);
   });
 };
