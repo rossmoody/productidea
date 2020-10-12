@@ -5,11 +5,7 @@ import { eventListeners } from "./event-listeners";
   const json = await response.json();
   const massiveArrayOfTweetObjects = [];
 
-  const test = await fetch(
-    "https://www.ineedaproductidea.com/.netlify/functions/tweets"
-  );
-  const testResult = await test.json();
-  console.log(testResult);
+  // const test = await fetch(process.env.TWEET_URL);
 
   // Netlify function
   const netlifyJson = json.data;

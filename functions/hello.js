@@ -1,5 +1,4 @@
 const admin = require("firebase-admin");
-const needle = require("needle");
 
 const creds = {
   type: process.env.FIRE_TYPE,
@@ -14,58 +13,7 @@ const creds = {
   client_x509_cert_url: process.env.FIRE_CLIENT_CERT,
 };
 
-// Twitter API creds
-const token = process.env.BEARER_TOKEN;
-const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
-
-// Queries
-const queries = [
-  {
-    string: `"I wish someone would make"`,
-    query_id: "i-wish-someone-would-make",
-  },
-  {
-    string: `"great app idea"`,
-    query_id: "great-app-idea",
-  },
-];
-
-async function getQuery(query, time) {
-  const params = {
-    query: query.string,
-    "tweet.fields": "public_metrics,created_at",
-    start_time: time,
-  };
-
-  const res = await needle("get", endpointUrl, params, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (res.body) {
-    return res.body;
-  } else {
-    throw new Error("Unsuccessful request");
-  }
-}
-
-async function getTweets() {
-  const init = queries.map(async (param, time) => {
-    const response = await getQuery(param, time);
-    response.data.forEach((element) => {
-      element.query_id = param.query_id;
-    });
-
-    return response.data;
-  });
-
-  const data = await Promise.all(init);
-  return data;
-}
-
 exports.handler = async (event, context, callback) => {
-  // Firebase
   if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert(creds),
