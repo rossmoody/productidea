@@ -51,10 +51,11 @@ async function getQuery(query, time) {
 }
 
 async function getTweets() {
-  const init = queries.map(async function () {
+  const init = queries.map(async (param) => {
     const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
 
     const response = await getQuery(param, yesterday);
+
     response &&
       response.data.forEach((element) => {
         element.query_id = param.query_id;
