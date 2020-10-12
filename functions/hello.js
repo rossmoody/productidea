@@ -14,10 +14,13 @@ const creds = {
 };
 
 exports.handler = async (event, context, callback) => {
-  admin.initializeApp({
-    credential: admin.credential.cert(creds),
-    databaseURL: "https://i-need-a-product-idea.firebaseio.com",
-  });
+  // Firebase
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(creds),
+      databaseURL: "https://i-need-a-product-idea.firebaseio.com",
+    });
+  }
 
   const db = admin.database();
   const ref = db.ref();

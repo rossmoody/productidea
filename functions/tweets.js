@@ -80,12 +80,12 @@ const db = admin.database();
 const todayRef = db.ref(today);
 
 exports.handler = async (event, context, callback) => {
-  if (!admin.apps.length) {
+  try {
     admin.initializeApp({
       credential: admin.credential.cert(creds),
       databaseURL: "https://i-need-a-product-idea.firebaseio.com",
     });
-  }
+  } catch (e) {}
 
   getTweets().then((results) => {
     const dayArr = [];
