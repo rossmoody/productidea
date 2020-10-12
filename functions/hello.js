@@ -87,6 +87,7 @@ exports.handler = async (event, context, callback) => {
 
   const db = admin.database();
   const ref = db.ref();
+  const todayRef = db.ref(today);
 
   const data = await ref.once("value", (snapshot) => {
     const val = snapshot.val();
