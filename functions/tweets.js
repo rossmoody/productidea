@@ -1,5 +1,5 @@
 // const needle = require("needle");
-const cron = require("node-cron");
+var schedule = require("node-schedule");
 
 // // Twitter API creds
 // const token = process.env.BEARER_TOKEN;
@@ -68,8 +68,8 @@ const cron = require("node-cron");
 // });
 
 exports.handler = async (event, context, callback) => {
-  cron.schedule("* * * * *", function () {
-    console.log("running a task every minute");
+  schedule.scheduleJob("10 * * * * *", function () {
+    console.log("The answer to life, the universe, and everything!");
   });
 
   return callback(null, {
