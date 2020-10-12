@@ -6,8 +6,6 @@ import { eventListeners } from "./event-listeners";
   const response = await fetch(process.env.INAPI_URL);
   const json = await response.json();
 
-  const massiveArrayOfTweetObjects = [];
-
   const netlifyJson = json.data;
 
   // for (const dayArr in json) {
@@ -17,9 +15,8 @@ import { eventListeners } from "./event-listeners";
   // }
 
   for (const dayObj in netlifyJson) {
-    massiveArrayOfTweetObjects.push(Object.values(netlifyJson[dayObj]));
+    const massiveArrayOfTweetObjects = Object.values(netlifyJson[dayObj]);
+    console.log(massiveArrayOfTweetObjects);
+    eventListeners(massiveArrayOfTweetObjects);
   }
-  console.log(massiveArrayOfTweetObjects);
-
-  eventListeners(massiveArrayOfTweetObjects);
 })();
