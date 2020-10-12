@@ -17,6 +17,6 @@ import { eventListeners } from "./event-listeners";
   //     massiveArrayOfTweetObjects.push(entry);
   //   });
   // }
-
+  console.log(massiveArrayOfTweetObjects);
   eventListeners(massiveArrayOfTweetObjects);
 })();
