@@ -2,8 +2,9 @@
 
 (async function init() {
   const response = await fetch(process.env.INAPI_URL);
-  const json = await response.data.json();
-  console.log(json);
+  const json = await response.json();
+  const netlifyJson = json.data;
+  console.log(netlif);
 
   // const massiveArrayOfTweetObjects = [];
 
