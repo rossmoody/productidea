@@ -53,6 +53,7 @@ async function getTweets() {
 }
 
 const now = new Date(Date.now()).toISOString();
+const db = admin.database();
 const todayRef = db.ref(now);
 
 exports.handler = async (event, context, callback) => {
