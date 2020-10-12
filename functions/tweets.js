@@ -1,3 +1,4 @@
+const admin = require("firebase-admin");
 const needle = require("needle");
 
 // Twitter API creds
