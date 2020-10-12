@@ -1,22 +1,20 @@
-import { eventListeners } from "./event-listeners";
+// import { eventListeners } from "./event-listeners";
 
 (async function init() {
   const response = await fetch(process.env.INAPI_URL);
   const json = await response.json();
-  const massiveArrayOfTweetObjects = [];
+  console.log(json);
 
-  const test = await fetch(process.env.TWEET_URL);
-  const testResult = await test.json();
-  console.log(testResult);
+  // const massiveArrayOfTweetObjects = [];
 
-  // Netlify function
-  const netlifyJson = json.data;
-  for (const dayObj in netlifyJson) {
-    const values = Object.values(netlifyJson[dayObj]);
-    values.forEach((entry) => {
-      massiveArrayOfTweetObjects.push(entry);
-    });
-  }
+  // // Netlify function
+  // const netlifyJson = json.data;
+  // for (const dayObj in netlifyJson) {
+  //   const values = Object.values(netlifyJson[dayObj]);
+  //   values.forEach((entry) => {
+  //     massiveArrayOfTweetObjects.push(entry);
+  //   });
+  // }
 
   // // Local function
   // for (const dayObj in json) {
@@ -25,5 +23,5 @@ import { eventListeners } from "./event-listeners";
   //   });
   // }
 
-  eventListeners(massiveArrayOfTweetObjects);
+  // eventListeners(massiveArrayOfTweetObjects);
 })();

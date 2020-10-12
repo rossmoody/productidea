@@ -34,3 +34,9 @@ app.get("/.netlify/functions/hello", function (req, res) {
     res.send(JSON.stringify(val));
   });
 });
+
+// Twitter stuff
+
+app.get("/.netlify/functions/tweets", function (req, res) {
+  console.log({ data: "this is working" });
+});

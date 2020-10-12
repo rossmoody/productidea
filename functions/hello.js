@@ -13,18 +13,18 @@ const creds = {
   client_x509_cert_url: process.env.FIRE_CLIENT_CERT,
 };
 
+// Firebase
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(creds),
+    databaseURL: "https://i-need-a-product-idea.firebaseio.com",
+  });
+}
+
+const db = admin.database();
+const ref = db.ref();
+
 exports.handler = async (event, context, callback) => {
-  // Firebase
-  if (!admin.apps.length) {
-    admin.initializeApp({
-      credential: admin.credential.cert(creds),
-      databaseURL: "https://i-need-a-product-idea.firebaseio.com",
-    });
-  }
-
-  const db = admin.database();
-  const ref = db.ref();
-
   const data = await ref.once("value", (snapshot) => {
     const val = snapshot.val();
     return val;
