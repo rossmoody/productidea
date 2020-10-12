@@ -36,11 +36,10 @@ const queries = [
   },
 ];
 
-async function getQuery(query, latestId) {
+async function getQuery(query) {
   const params = {
     query: query.string,
     "tweet.fields": "public_metrics,created_at",
-    since_id: latestId,
   };
 
   const res = await needle("get", endpointUrl, params, {
@@ -56,10 +55,10 @@ async function getQuery(query, latestId) {
   }
 }
 
-async function getTweets(latestId) {
+async function getTweets() {
   // TODO: Only return results with atleast 1 like
   const init = queries.map(async (param) => {
-    const response = await getQuery(param, latestId);
+    const response = await getQuery(param);
     response.data.forEach((element) => {
       element.query_id = param.query_id;
     });
@@ -98,11 +97,7 @@ app.get("/.netlify/functions/hello", function (req, res) {
 
     // If request hasn't been made today, getTweets and push to database
     if (!keys.includes(todaysDate)) {
-      // Find latest Tweet ID for fetching
-      const lastTweet = val[todaysDate].slice(-1)[0];
-      const lastTweetId = lastTweet.id;
-
-      getTweets(lastTweetId).then((results) => {
+      getTweets().then((results) => {
         const dayArr = [];
 
         results.forEach((queryArr) => {

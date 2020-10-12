@@ -1,22 +1,21 @@
-import { renderTweets } from "./render";
-import { applyFilters } from "./filters";
 import { eventListeners } from "./event-listeners";
 
 (async function init() {
   const response = await fetch(process.env.INAPI_URL);
   const json = await response.json();
+  const massiveArrayOfTweetObjects = [];
 
+  //  Netlify function
   const netlifyJson = json.data;
+  for (const dayObj in netlifyJson) {
+    massiveArrayOfTweetObjects.push(Object.values(netlifyJson[dayObj]));
+  }
 
-  // for (const dayArr in json) {
-  //   json[dayArr].forEach((entry) => {
-  //     massiveArrayOfTweetObjects.push(entry);
-  //   });
+  // // Local function
+  // for (const dayObj in json) {
+  //   massiveArrayOfTweetObjects.push(Object.values(json[dayObj]));
   // }
 
-  for (const dayObj in netlifyJson) {
-    const massiveArrayOfTweetObjects = Object.values(netlifyJson[dayObj]);
-    console.log(massiveArrayOfTweetObjects);
-    eventListeners(massiveArrayOfTweetObjects);
-  }
+  console.log(massiveArrayOfTweetObjects);
+  eventListeners(massiveArrayOfTweetObjects);
 })();
