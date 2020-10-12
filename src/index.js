@@ -1,5 +1,7 @@
 // import { eventListeners } from "./event-listeners";
 
 (async function init() {
-  console.log("fuck this");
+  const response = await fetch(process.env.INAPI_URL);
+  const json = await response.json();
+  console.log(json);
 })();
