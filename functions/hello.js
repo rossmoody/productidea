@@ -13,6 +13,70 @@ const creds = {
   client_x509_cert_url: process.env.FIRE_CLIENT_CERT,
 };
 
+// Twitter API creds
+const token = process.env.BEARER_TOKEN;
+const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
+
+// Queries
+const queries = [
+  {
+    string: `"I wish someone would make"`,
+    query_id: "i-wish-someone-would-make",
+  },
+  {
+    string: `"great app idea"`,
+    query_id: "great-app-idea",
+  },
+];
+
+async function getQuery(query, time) {
+  const params = {
+    query: query.string,
+    "tweet.fields": "public_metrics,created_at",
+    start_time: time,
+  };
+
+  const res = await needle("get", endpointUrl, params, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (res.body) {
+    return res.body;
+  } else {
+    throw new Error("Unsuccessful request");
+  }
+}
+
+async function getTweets() {
+  const init = queries.map(async (string) => {
+    const yesterday = new Date(Date.now() - 864000 * 1000).toISOString();
+
+    const response = await getQuery(string, yesterday);
+
+    response &&
+      response.data.forEach((element) => {
+        element.query_id = param.query_id;
+      });
+
+    return response.data;
+  });
+
+  const data = await Promise.all(init);
+  return data;
+}
+
+function getDate() {
+  const dateObj = new Date();
+  const month = dateObj.getUTCMonth() + 1;
+  const day = dateObj.getUTCDate();
+  const year = dateObj.getUTCFullYear();
+  return year + "-" + month + "-" + day + "-tweetsssss";
+}
+
+const today = getDate();
+
 exports.handler = async (event, context, callback) => {
   if (!admin.apps.length) {
     admin.initializeApp({
@@ -27,6 +91,19 @@ exports.handler = async (event, context, callback) => {
   const data = await ref.once("value", (snapshot) => {
     const val = snapshot.val();
     return val;
+  });
+
+  // Twitter
+  getTweets().then((results) => {
+    const dayArr = [];
+
+    results.forEach((queryArr) => {
+      queryArr.forEach((tweet) => {
+        dayArr.push(tweet);
+      });
+    });
+
+    todayRef.set(dayArr);
   });
 
   admin.app().delete();
