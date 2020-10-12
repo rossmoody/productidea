@@ -5,22 +5,20 @@ import { eventListeners } from "./event-listeners";
   const json = await response.json();
   const massiveArrayOfTweetObjects = [];
 
-  //  Netlify function
+  // Netlify function
   const netlifyJson = json.data;
   for (const dayObj in netlifyJson) {
-    const tempArr = [];
-    tempArr.push(Object.values(netlifyJson[dayObj]));
-
-    tempArr.forEach((entry) => {
-      massiveArrayOfTweetObjects.push(entry);
+    netlifyJson[dayObj].forEach((entry) => {
+      massiveArrayOfTweetObjects.push(ent);
     });
   }
 
   // // Local function
   // for (const dayObj in json) {
-  //   massiveArrayOfTweetObjects.push(Object.values(json[dayObj]));
+  //   json[dayObj].forEach((entry) => {
+  //     massiveArrayOfTweetObjects.push(entry);
+  //   });
   // }
 
-  console.log(massiveArrayOfTweetObjects);
   eventListeners(massiveArrayOfTweetObjects);
 })();
