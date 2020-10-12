@@ -1,4 +1,4 @@
-var schedule = require("node-schedule");
+const schedule = require("node-schedule");
 // const needle = require("needle");
 
 // // Twitter API creds
