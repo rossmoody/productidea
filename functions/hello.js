@@ -65,11 +65,6 @@ async function getTweets() {
 }
 
 exports.handler = async (event, context, callback) => {
-  if (event.method == "POST") {
-    console.log("It a post request");
-    return { statusCode: 200, body: "this is working" };
-  }
-
   // Firebase
   if (!admin.apps.length) {
     admin.initializeApp({

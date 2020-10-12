@@ -2,10 +2,12 @@ import { eventListeners } from "./event-listeners";
 
 (async function init() {
   const response = await fetch(process.env.INAPI_URL);
-  const test = await fetch(process.env.INAPI_URL, { method: "POST" });
-  console.log(test);
   const json = await response.json();
   const massiveArrayOfTweetObjects = [];
+
+  const test = await fetch(".netlify/functions/tweets");
+  const testResult = await test.json();
+  console.log(testResult);
 
   // Netlify function
   const netlifyJson = json.data;
