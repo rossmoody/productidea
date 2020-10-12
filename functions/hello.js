@@ -1,4 +1,3 @@
-const express = require("express")
 const needle = require("needle")
 const admin = require("firebase-admin")
 
@@ -91,13 +90,6 @@ async function getTweets() {
 
   return dayArr
 }
-
-// Local server stuff
-const app = express()
-app.listen(3000, () => console.log("Server is listening on port 3000"))
-app.use(express.static("local"))
-
-app.get("/.netlify/functions/hello", async (req, res) => {})
 
 exports.handler = async (event, context, callback) => {
   let shouldIGetTweets
