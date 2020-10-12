@@ -19,6 +19,7 @@ import { eventListeners } from "./event-listeners";
   for (const dayObj in netlifyJson) {
     massiveArrayOfTweetObjects.push(Object.values(netlifyJson[dayObj]));
   }
+  console.log(massiveArrayOfTweetObjects);
 
   eventListeners(massiveArrayOfTweetObjects);
 })();
