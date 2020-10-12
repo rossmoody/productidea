@@ -70,7 +70,7 @@ exports.handler = async (event, context, callback) => {
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = [new schedule.Range(0, 6)];
   rule.hour = 20;
-  rule.minute = 30;
+  rule.minute = 45;
 
   schedule.scheduleJob(rule, () => {
     const now = new Date(Date.now()).toISOString();
