@@ -9,6 +9,7 @@ import { eventListeners } from "./event-listeners";
   const netlifyJson = json.data;
   for (const dayObj in netlifyJson) {
     const arr = [netlifyJson[dayObj]];
+    console.log(arr);
     arr.forEach((entry) => {
       massiveArrayOfTweetObjects.push(entry);
     });
