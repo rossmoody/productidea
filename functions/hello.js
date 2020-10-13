@@ -82,10 +82,10 @@ async function getQuery(query) {
 }
 
 async function getTweets(array) {
-  const init = array.map(async (query) => {
+  const init = array.map(async query => {
     const response = await getQuery(query)
 
-    response.data.forEach((element) => {
+    response.data.forEach(element => {
       element.query_id = query.query_id
     })
 
@@ -96,8 +96,8 @@ async function getTweets(array) {
 
   const dayArr = []
 
-  data.forEach((queryArr) => {
-    queryArr.forEach((tweet) => {
+  data.forEach(queryArr => {
+    queryArr.forEach(tweet => {
       dayArr.push(tweet)
     })
   })
@@ -121,7 +121,7 @@ exports.handler = async (event, context, callback) => {
   const ref = db.ref()
   const todayRef = db.ref(today)
 
-  const data = await ref.once("value", (snapshot) => {
+  const data = await ref.once("value", snapshot => {
     const val = snapshot.val()
     const keys = Object.keys(val)
     if (!keys.includes(today)) {
@@ -137,7 +137,7 @@ exports.handler = async (event, context, callback) => {
     // const allTweets = [...tweets, ...tweetsTwo]
 
     const atleastOneLike = tweets.filter(
-      (tweet) => tweet.public_metrics.like_count >= 1
+      tweet => tweet.public_metrics.like_count >= 1
     )
 
     todayRef.set(atleastOneLike)
