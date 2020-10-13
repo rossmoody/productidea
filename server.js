@@ -43,9 +43,35 @@ const queries = [
   {
     string: `"great app idea"`,
     query_id: "great-app-idea"
+  },
+  {
+    string: `"an app where"`,
+    query_id: "an-app-where"
+  },
+  {
+    string: `"amazing product idea"`,
+    query_id: "amazing-product-idea"
+  },
+  {
+    string: `"new product idea"`,
+    query_id: "new-product-request"
   }
 ]
-// does anybody know of an app
+
+const queriesTwo = [
+  {
+    string: `"does anybody know of an app"`,
+    query_id: "does-anybody-know-of-an-app"
+  },
+  {
+    string: `"i wish there was a service"`,
+    query_id: "i-wish-there-was-a-service"
+  },
+  {
+    string: `"#inapi"`,
+    query_id: "inapi"
+  }
+]
 
 async function getQuery(query) {
   const yesterday = new Date(Date.now() - 86400 * 1000).toISOString()
@@ -69,8 +95,8 @@ async function getQuery(query) {
   }
 }
 
-async function getTweets() {
-  const init = queries.map(async (query) => {
+async function getTweets(array) {
+  const init = array.map(async (query) => {
     const response = await getQuery(query)
 
     response.data.forEach((element) => {
@@ -112,10 +138,15 @@ app.get("/.netlify/functions/hello", async (req, res) => {
   })
 
   if (shouldIGetTweets) {
-    const tweets = await getTweets()
+    const tweets = await getTweets(queries)
+    // const tweetsTwo = await getTweets(queriesTwo)
+
+    // const allTweets = [...tweets, ...tweetsTwo]
+
     const atleastOneLike = tweets.filter(
       (tweet) => tweet.public_metrics.like_count >= 1
     )
+
     todayRef.set(atleastOneLike)
   }
 
