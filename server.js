@@ -16,19 +16,6 @@ const creds = {
   client_x509_cert_url: process.env.FIRE_CLIENT_CERT
 }
 
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(creds),
-    databaseURL: "https://i-need-a-product-idea.firebaseio.com"
-  })
-}
-
-const today = new Date(Date.now()).toISOString().substring(0, 10)
-
-const db = admin.database()
-const ref = db.ref()
-const todayRef = db.ref(today)
-
 //
 //
 // Twitter API creds
@@ -96,10 +83,10 @@ async function getQuery(query) {
 }
 
 async function getTweets(array) {
-  const init = array.map(async (query) => {
+  const init = array.map(async query => {
     const response = await getQuery(query)
 
-    response.data.forEach((element) => {
+    response.data.forEach(element => {
       element.query_id = query.query_id
     })
 
@@ -110,8 +97,8 @@ async function getTweets(array) {
 
   const dayArr = []
 
-  data.forEach((queryArr) => {
-    queryArr.forEach((tweet) => {
+  data.forEach(queryArr => {
+    queryArr.forEach(tweet => {
       dayArr.push(tweet)
     })
   })
@@ -125,9 +112,21 @@ app.listen(3000, () => console.log("Server is listening on port 3000"))
 app.use(express.static("local"))
 
 app.get("/.netlify/functions/hello", async (req, res) => {
-  let shouldIGetTweets
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(creds),
+      databaseURL: "https://i-need-a-product-idea.firebaseio.com"
+    })
+  }
 
-  const data = await ref.once("value", (snapshot) => {
+  let shouldIGetTweets
+  const today = new Date(Date.now()).toISOString().substring(0, 10)
+
+  const db = admin.database()
+  const ref = db.ref()
+  const todayRef = db.ref(today)
+
+  const data = await ref.once("value", snapshot => {
     const val = snapshot.val()
     const keys = Object.keys(val)
     if (!keys.includes(today)) {
@@ -139,12 +138,9 @@ app.get("/.netlify/functions/hello", async (req, res) => {
 
   if (shouldIGetTweets) {
     const tweets = await getTweets(queries)
-    // const tweetsTwo = await getTweets(queriesTwo)
-
-    // const allTweets = [...tweets, ...tweetsTwo]
 
     const atleastOneLike = tweets.filter(
-      (tweet) => tweet.public_metrics.like_count >= 1
+      tweet => tweet.public_metrics.like_count >= 1
     )
 
     todayRef.set(atleastOneLike)
