@@ -97,11 +97,10 @@ exports.handler = async (event, context, callback) => {
   const data = await ref.once("value", (snapshot) => {
     const val = snapshot.val()
     const keys = Object.keys(val)
-    if (!keys.includes(today)) {
-      shouldIGetTweets = true
-    }
-
     return val
+    // if (!keys.includes(today)) {
+    //   shouldIGetTweets = true
+    // }
   })
 
   if (shouldIGetTweets) {
