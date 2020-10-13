@@ -2,7 +2,9 @@
 
 ;(async function init() {
   const response = await fetch(process.env.INAPI_URL)
+  console.log(response)
+  console.log(response.data)
   const json = await response.json()
-  const dataObj = json.data
-  console.log(dataObj)
+  console.log(json)
+  console.log(json.data)
 })()
