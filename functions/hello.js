@@ -106,7 +106,10 @@ exports.handler = async (event, context, callback) => {
 
   if (shouldIGetTweets) {
     const tweets = await getTweets()
-    todayRef.set(tweets)
+    const atleastOneLike = tweets.filter(
+      (tweet) => tweet.public_metrics.like_count >= 1
+    )
+    todayRef.set(atleastOneLike)
   }
 
   admin.app().delete()

@@ -45,6 +45,7 @@ const queries = [
     query_id: "great-app-idea"
   }
 ]
+// does anybody know of an app
 
 async function getQuery(query) {
   const yesterday = new Date(Date.now() - 86400 * 1000).toISOString()
@@ -112,7 +113,10 @@ app.get("/.netlify/functions/hello", async (req, res) => {
 
   if (shouldIGetTweets) {
     const tweets = await getTweets()
-    todayRef.set(tweets)
+    const atleastOneLike = tweets.filter(
+      (tweet) => tweet.public_metrics.like_count >= 1
+    )
+    todayRef.set(atleastOneLike)
   }
 
   admin.app().delete()

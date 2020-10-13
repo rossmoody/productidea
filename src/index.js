@@ -1,6 +1,6 @@
-// import { eventListeners } from "./event-listeners";
+import { eventListeners } from "./event-listeners"
 
-;(async function init() {
+async function init() {
   const response = await fetch(process.env.INAPI_URL)
   const json = await response.json()
   const netlifyJson = json.data
@@ -13,5 +13,7 @@
     })
   }
 
-  console.log(massiveArrayOfTweetObjects)
-})()
+  eventListeners(massiveArrayOfTweetObjects)
+}
+
+init()
