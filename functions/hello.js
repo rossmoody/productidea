@@ -46,7 +46,7 @@ const queries = [
 
 const queriesTwo = [
   {
-    string: `"does anybody know of an app"`,
+    string: `"an app"`,
     query_id: "does-anybody-know-of-an-app"
   },
   {
@@ -132,15 +132,13 @@ exports.handler = async (event, context, callback) => {
   })
 
   if (shouldIGetTweets) {
-    const tweets = await getTweets(queries)
-    // const tweetsTwo = await getTweets(queriesTwo)
+    // const tweets = await getTweets(queries)
+    const tweetsTwo = await getTweets(queriesTwo)
     // const allTweets = [...tweets, ...tweetsTwo]
 
-    const atleastOneLike = tweets.filter(
-      tweet => tweet.public_metrics.like_count >= 1
+    todayRef.set(
+      tweetsTwo.filter(tweet => tweet.public_metrics.like_count >= 1)
     )
-
-    todayRef.set(atleastOneLike)
   }
 
   admin.app().delete()
