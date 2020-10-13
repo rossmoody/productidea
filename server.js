@@ -47,12 +47,20 @@ const queries = [
 
 const queriesTwo = [
   {
-    string: `"does anybody know of an app"`,
-    query_id: "does-anybody-know-of-an-app"
+    string: `"does anyone know of an app"`,
+    query_id: "does-anyone-know-of-an-app"
   },
   {
-    string: `"i wish there was a service"`,
-    query_id: "i-wish-there-was-a-service"
+    string: `"wish there was a service"`,
+    query_id: "wish-there-was-a-service"
+  },
+  {
+    string: `"wish there was an app"`,
+    query_id: "wish-there-was-an-app"
+  },
+  {
+    string: `"wish i could find"`,
+    query_id: "wish-i-could-find"
   },
   {
     string: `"#inapi"`,
@@ -138,12 +146,12 @@ app.get("/.netlify/functions/hello", async (req, res) => {
 
   if (shouldIGetTweets) {
     const tweets = await getTweets(queries)
+    const tweetsTwo = await getTweets(queriesTwo)
+    const allTweets = [...tweets, ...tweetsTwo]
 
-    const atleastOneLike = tweets.filter(
-      tweet => tweet.public_metrics.like_count >= 1
+    todayRef.set(
+      allTweets.filter(tweet => tweet.public_metrics.like_count >= 1)
     )
-
-    todayRef.set(atleastOneLike)
   }
 
   admin.app().delete()
