@@ -46,16 +46,32 @@ const queries = [
 
 const queriesTwo = [
   {
-    string: `"does anybody know of an app"`,
-    query_id: "does-anybody-know-of-an-app"
+    string: `"does anyone know of an app"`,
+    query_id: "does-anyone-know-of-an-app"
   },
   {
     string: `"i wish there was a service"`,
     query_id: "i-wish-there-was-a-service"
   },
   {
-    string: `"#inapi"`,
-    query_id: "inapi"
+    string: `"i wish there was an app"`,
+    query_id: "i-wish-there-was-an-app"
+  },
+  {
+    string: `"wish i could find"`,
+    query_id: "wish-i-could-find"
+  },
+  {
+    string: `"#productidealist"`,
+    query_id: "productidealist"
+  },
+  {
+    string: `"#productidea"`,
+    query_id: "productidea"
+  },
+  {
+    string: `"#appidea"`,
+    query_id: "appidea"
   }
 ]
 
@@ -85,11 +101,13 @@ async function getTweets(array) {
   const init = array.map(async query => {
     const response = await getQuery(query)
 
-    response.data.forEach(element => {
-      element.query_id = query.query_id
-    })
+    if (response.data) {
+      response.data.forEach(element => {
+        element.query_id = query.query_id
+      })
 
-    return response.data
+      return response.data
+    }
   })
 
   const data = await Promise.all(init)
@@ -97,17 +115,17 @@ async function getTweets(array) {
   const dayArr = []
 
   data.forEach(queryArr => {
-    queryArr.forEach(tweet => {
-      dayArr.push(tweet)
-    })
+    if (queryArr) {
+      queryArr.forEach(tweet => {
+        dayArr.push(tweet)
+      })
+    }
   })
 
   return dayArr
 }
 
 exports.handler = async (event, context, callback) => {
-  let shouldIGetTweets
-
   if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert(creds),
@@ -115,6 +133,7 @@ exports.handler = async (event, context, callback) => {
     })
   }
 
+  let shouldIGetTweets
   const today = new Date(Date.now()).toISOString().substring(0, 10)
 
   const db = admin.database()
@@ -127,14 +146,15 @@ exports.handler = async (event, context, callback) => {
     if (!keys.includes(today)) {
       shouldIGetTweets = true
     }
-
     return val
   })
 
   if (shouldIGetTweets) {
     const tweets = await getTweets(queries)
+    const tweetsTwo = await getTweets(queriesTwo)
+    const allTweets = [...tweets, ...tweetsTwo]
 
-    todayRef.set(tweets.filter(tweet => tweet.public_metrics.like_count >= 1))
+    todayRef.set(allTweets)
   }
 
   admin.app().delete()
