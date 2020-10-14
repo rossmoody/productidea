@@ -66,7 +66,6 @@ export function eventListeners(tweets) {
   })
 
   time.addEventListener("change", event => {
-    console.log(event.target.value)
     filterParams.time = event.target.value
     renderTweets(applyFilters(filterParams, tweets))
   })

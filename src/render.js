@@ -9,10 +9,27 @@ export function renderTweets(tweets) {
   newTweetCont.setAttribute("id", "tweet-container")
   container.appendChild(newTweetCont)
 
-  // Temp manageable amount of tweets
-  const ten = tweets.slice(0, 9)
+  // Load more hook
+  let firstInt = 0
+  let secondInt = 9
 
-  ten.forEach(tweet => {
+  const loadMoreBtn = document.getElementById("load-more")
+  loadMoreBtn.addEventListener("click", () => {
+    firstInt += 10
+    secondInt += 10
+
+    const div = document.createElement("div")
+    newTweetCont.appendChild(div)
+
+    tweets.slice(firstInt, secondInt).forEach(tweet => {
+      twttr.widgets.createTweet(`${tweet.id}`, div, {
+        conversation: "none",
+        cards: "hidden"
+      })
+    })
+  })
+
+  tweets.slice(firstInt, secondInt).forEach(tweet => {
     twttr.widgets.createTweet(`${tweet.id}`, newTweetCont, {
       conversation: "none",
       cards: "hidden"

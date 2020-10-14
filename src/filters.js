@@ -49,11 +49,14 @@ export function applyFilters(filterParams, tweets) {
     return tweet.created_at > compareTime
   }
 
-  const filteredResults = tweets
+  const timeResults = tweets.filter(filterByTime)
+
+  setCount(timeResults, phrases)
+
+  const filteredResults = timeResults
     .filter(filterLikes)
     .filter(filterRetweets)
     .filter(filterPhrase)
-    .filter(filterByTime)
 
   // Sorting logic
   let sortBy
@@ -69,7 +72,6 @@ export function applyFilters(filterParams, tweets) {
     return b.public_metrics[sortBy] - a.public_metrics[sortBy]
   })
 
-  setCount(sortedResults, phrases)
   console.log(sortedResults)
   return sortedResults
 }
