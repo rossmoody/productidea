@@ -51,20 +51,20 @@ const queriesTwo = [
     query_id: "does-anyone-know-of-an-app"
   },
   {
-    string: `"wish there was a service"`,
-    query_id: "wish-there-was-a-service"
+    string: `"i wish there was a service"`,
+    query_id: "i-wish-there-was-a-service"
   },
   {
-    string: `"wish there was an app"`,
-    query_id: "wish-there-was-an-app"
+    string: `"i wish there was an app"`,
+    query_id: "i-wish-there-was-an-app"
   },
   {
     string: `"wish i could find"`,
     query_id: "wish-i-could-find"
   },
   {
-    string: `"#inapi"`,
-    query_id: "inapi"
+    string: `"#productidealist"`,
+    query_id: "productidealist"
   },
   {
     string: `"#productidea"`,
@@ -152,7 +152,6 @@ app.get("/.netlify/functions/hello", async (req, res) => {
     if (!keys.includes(today)) {
       shouldIGetTweets = true
     }
-
     return val
   })
 
@@ -161,9 +160,7 @@ app.get("/.netlify/functions/hello", async (req, res) => {
     const tweetsTwo = await getTweets(queriesTwo)
     const allTweets = [...tweets, ...tweetsTwo]
 
-    todayRef.set(
-      allTweets.filter(tweet => tweet.public_metrics.like_count >= 1)
-    )
+    todayRef.set(allTweets)
   }
 
   admin.app().delete()

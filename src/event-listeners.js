@@ -1,21 +1,8 @@
 import { renderTweets } from "./render"
 import { applyFilters } from "./filters"
 
-export function eventListeners(tweets) {
-  const filterParams = {
-    likes: 1,
-    retweets: 0,
-    sortBy: "likes", // likes, recent
-    time: "daily", // weekly, monthly, yearly
-    phrases: {},
-    hashtags: {
-      inapi: false,
-      productIdea: false,
-      appIdea: false
-    }
-  }
-
-  const phrases = {
+export const phrases = {
+  strings: {
     iwswm: "i-wish-someone-would-make",
     gai: "great-app-idea",
     aaw: "an-app-where",
@@ -25,35 +12,36 @@ export function eventListeners(tweets) {
     iwtwas: "i-wish-there-was-a-service",
     iwtwaa: "i-wish-there-was-an-app",
     wicf: "wish-i-could-find"
-  }
-
-  const hashtags = {
-    inapi: "inapi",
+  },
+  hashtags: {
+    productidealist: "productidealist",
     productIdea: "productidea",
     appIdea: "appidea"
   }
+}
 
-  function setPhrases() {
-    for (const [key, value] of Object.entries(phrases)) {
-      filterParams.phrases[phrases[key]] = true
-
-      const listener = document.getElementById(value)
-      listener.addEventListener("change", event => {
-        filterParams.phrases[value] = event.target.checked
-        renderTweets(applyFilters(filterParams, tweets))
-      })
-    }
+export function eventListeners(tweets) {
+  const filterParams = {
+    likes: 1,
+    retweets: 0,
+    sortBy: "likes", // likes, recent
+    time: "daily", // weekly, monthly, yearly
+    filters: {}
   }
 
-  function setHashtags() {
-    for (const [key, value] of Object.entries(hashtags)) {
-      filterParams.phrases[phrases[key]] = false
+  function setFilters() {
+    for (const [entries, values] of Object.entries(phrases)) {
+      for (const value of Object.values(values)) {
+        entries === "strings"
+          ? (filterParams.filters[value] = true)
+          : (filterParams.filters[value] = false)
 
-      const listener = document.getElementById(value)
-      listener.addEventListener("change", event => {
-        filterParams.phrases[value] = event.target.checked
-        renderTweets(applyFilters(filterParams, tweets))
-      })
+        const listener = document.getElementById(value)
+        listener.addEventListener("change", event => {
+          filterParams.filters[value] = event.target.checked
+          renderTweets(applyFilters(filterParams, tweets))
+        })
+      }
     }
   }
 
@@ -83,7 +71,7 @@ export function eventListeners(tweets) {
     renderTweets(applyFilters(filterParams, tweets))
   })
 
-  setPhrases()
-  setHashtags()
+  setFilters()
+  console.log("Filter parameters ->", filterParams)
   renderTweets(applyFilters(filterParams, tweets))
 }

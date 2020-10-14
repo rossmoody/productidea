@@ -1,3 +1,23 @@
+import { phrases } from "./event-listeners"
+
+function setCount(i, k) {
+  const count = {}
+
+  for (const tweet of i) {
+    count[tweet.query_id]
+      ? count[tweet.query_id]++
+      : (count[tweet.query_id] = 1)
+  }
+
+  for (const values of Object.values(k)) {
+    for (const value of Object.values(values)) {
+      count[value] ? null : (count[value] = 0)
+      const ele = document.getElementById(value).nextElementSibling
+      ele.textContent = count[value]
+    }
+  }
+}
+
 export function applyFilters(filterParams, tweets) {
   // Filter logic
   function filterLikes(tweet) {
@@ -9,7 +29,7 @@ export function applyFilters(filterParams, tweets) {
   }
 
   function filterPhrase(tweet) {
-    return filterParams.phrases[tweet.query_id]
+    return filterParams.filters[tweet.query_id]
   }
 
   function filterByTime(tweet) {
@@ -49,6 +69,7 @@ export function applyFilters(filterParams, tweets) {
     return b.public_metrics[sortBy] - a.public_metrics[sortBy]
   })
 
+  setCount(sortedResults, phrases)
   console.log(sortedResults)
   return sortedResults
 }
