@@ -6,9 +6,10 @@ async function init() {
   const netlifyJson = json.data
 
   const massiveArrayOfTweetObjects = []
+
   for (const dayObj in netlifyJson) {
     const values = Object.values(netlifyJson[dayObj])
-    values.forEach((entry) => {
+    values.forEach(entry => {
       massiveArrayOfTweetObjects.push(entry)
     })
   }

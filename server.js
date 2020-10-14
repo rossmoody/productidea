@@ -65,6 +65,14 @@ const queriesTwo = [
   {
     string: `"#inapi"`,
     query_id: "inapi"
+  },
+  {
+    string: `"#productidea"`,
+    query_id: "productidea"
+  },
+  {
+    string: `"#appidea"`,
+    query_id: "appidea"
   }
 ]
 
@@ -94,11 +102,13 @@ async function getTweets(array) {
   const init = array.map(async query => {
     const response = await getQuery(query)
 
-    response.data.forEach(element => {
-      element.query_id = query.query_id
-    })
+    if (response.data) {
+      response.data.forEach(element => {
+        element.query_id = query.query_id
+      })
 
-    return response.data
+      return response.data
+    }
   })
 
   const data = await Promise.all(init)
@@ -106,9 +116,11 @@ async function getTweets(array) {
   const dayArr = []
 
   data.forEach(queryArr => {
-    queryArr.forEach(tweet => {
-      dayArr.push(tweet)
-    })
+    if (queryArr) {
+      queryArr.forEach(tweet => {
+        dayArr.push(tweet)
+      })
+    }
   })
 
   return dayArr
