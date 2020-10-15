@@ -49,6 +49,7 @@ export function eventListeners(tweets) {
   const minRetweets = document.getElementById("min-retweets")
   const sortBy = document.getElementById("sort")
   const time = document.getElementById("dates")
+  const input = document.getElementById("filter-by-keyword")
 
   minLikes.addEventListener("change", event => {
     filterParams.likes = event.target.value
@@ -68,6 +69,26 @@ export function eventListeners(tweets) {
   time.addEventListener("change", event => {
     filterParams.time = event.target.value
     renderTweets(applyFilters(filterParams, tweets))
+  })
+
+  let timer
+
+  input.addEventListener("keyup", () => {
+    clearTimeout(timer)
+
+    timer = setTimeout(() => {
+      const arr = []
+      const value = input.value.toUpperCase()
+      console.log(value)
+      tweets.forEach(tweet => {
+        const textToUpper = tweet.text.toUpperCase()
+        if (textToUpper.includes(value)) {
+          arr.push(tweet)
+        }
+      })
+
+      renderTweets(applyFilters(filterParams, arr))
+    }, 500)
   })
 
   setFilters()
