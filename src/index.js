@@ -1,20 +1,27 @@
 import { eventListeners } from "./event-listeners"
 
 async function init() {
-  const response = await fetch(process.env.INAPI_URL)
-  const json = await response.json()
-  const netlifyJson = json.data
+  const local = JSON.parse(localStorage.getItem("tweet"))
 
-  const massiveArrayOfTweetObjects = []
+  if (!local) {
+    const response = await fetch(process.env.INAPI_URL)
+    const json = await response.json()
+    const netlifyJson = json.data
 
-  for (const dayObj in netlifyJson) {
-    const values = Object.values(netlifyJson[dayObj])
-    values.forEach(entry => {
-      massiveArrayOfTweetObjects.push(entry)
-    })
+    const massiveArrayOfTweetObjects = []
+
+    for (const dayObj in netlifyJson) {
+      const values = Object.values(netlifyJson[dayObj])
+      values.forEach(entry => {
+        massiveArrayOfTweetObjects.push(entry)
+      })
+    }
+
+    localStorage.setItem("tweet", JSON.stringify(massiveArrayOfTweetObjects))
+    eventListeners(massiveArrayOfTweetObjects)
+  } else {
+    eventListeners(local)
   }
-
-  eventListeners(massiveArrayOfTweetObjects)
 }
 
 init()
