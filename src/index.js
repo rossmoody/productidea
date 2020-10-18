@@ -15,7 +15,7 @@ async function init() {
   }
 
   const uniqueArr = massiveArrayOfTweetObjects.filter((value, index) => {
-    return chars.indexOf(value.id) !== index
+    return massiveArrayOfTweetObjects.indexOf(value.id) !== index
   })
 
   eventListeners(uniqueArr)
