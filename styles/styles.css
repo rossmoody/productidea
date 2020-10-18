@@ -278,6 +278,7 @@ input[type="checkbox"] {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
   cursor: pointer;
+  z-index: 5;
 }
 
 @media only screen and (max-width: 860px) {
