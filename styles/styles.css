@@ -180,6 +180,10 @@ fieldset {
   margin: 2.6rem 0 8rem 0;
 }
 
+#load-more {
+  display: none;
+}
+
 /* Select override */
 select {
   appearance: none;

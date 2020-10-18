@@ -13,7 +13,8 @@ function makeTweets(arr, node) {
   })
 
   twttr.events.bind("rendered", () => {
-    document.getElementById("loader").remove()
+    const loader = document.getElementById("loader")
+    loader && loader.remove()
   })
 }
 
@@ -33,15 +34,22 @@ export function renderTweets(tweets) {
   let secondInt = 9
 
   // Loader
-
   const loadMoreBtn = document.getElementById("load-more")
-  loadMoreBtn.addEventListener("click", () => {
-    firstInt += 10
-    secondInt += 10
-    const div = document.createElement("div")
-    newTweetCont.appendChild(div)
-    makeTweets(tweets.slice(firstInt, secondInt), div)
-  })
+
+  if (tweets.length > secondInt) {
+    loadMoreBtn.style.display = "flex"
+    loadMoreBtn.addEventListener("click", () => {
+      firstInt += 10
+      secondInt += 10
+
+      tweets.length > secondInt ? null : (loadMoreBtn.style.display = "none")
+      const div = document.createElement("div")
+      newTweetCont.appendChild(div)
+      makeTweets(tweets.slice(firstInt, secondInt), div)
+    })
+  } else {
+    loadMoreBtn.style.display = "none"
+  }
 
   makeTweets(tweets.slice(firstInt, secondInt), newTweetCont)
 }

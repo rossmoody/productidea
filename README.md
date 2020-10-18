@@ -1,7 +1,6 @@
 # I Need a Product Idea
 
-1. Improve the load more functionality to not always be showing unless there actually ARE more
-1. Set up a loader for rendering
+1. Setup filter sidebar on mobile
 
 ## Example object
 
