@@ -58,12 +58,8 @@ const queriesTwo = [
     query_id: "wish-i-could-find"
   },
   {
-    string: `"#productidealist"`,
-    query_id: "productidealist"
-  },
-  {
-    string: `"#productidea"`,
-    query_id: "productidea"
+    string: `"i'd-pay-for-that`,
+    query_id: "id-pay-for-that"
   },
   {
     string: `"#appidea"`,

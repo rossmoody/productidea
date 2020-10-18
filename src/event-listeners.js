@@ -15,8 +15,6 @@ export const phrases = {
     ipft: "id-pay-for-that"
   },
   hashtags: {
-    productidealist: "productidealist",
-    productIdea: "productidea",
     appIdea: "appidea"
   }
 }
@@ -38,6 +36,7 @@ export function eventListeners(tweets) {
           : (filterParams.filters[value] = false)
 
         const listener = document.getElementById(value)
+        console.log(listener)
         listener.addEventListener("change", event => {
           filterParams.filters[value] = event.target.checked
           renderTweets(applyFilters(filterParams, tweets))
