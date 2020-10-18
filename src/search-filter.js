@@ -6,7 +6,6 @@ export function filterBySearch(tweets) {
     const value = input.value.toUpperCase()
     tweets.forEach(tweet => {
       if (tweet.text.includes(value)) {
-        console.log(tweet.text)
         arr.push(tweet)
       }
     })

@@ -36,7 +36,6 @@ export function eventListeners(tweets) {
           : (filterParams.filters[value] = false)
 
         const listener = document.getElementById(value)
-        console.log(listener)
         listener.addEventListener("change", event => {
           filterParams.filters[value] = event.target.checked
           renderTweets(applyFilters(filterParams, tweets))
@@ -79,7 +78,6 @@ export function eventListeners(tweets) {
     timer = setTimeout(() => {
       const arr = []
       const value = input.value.toUpperCase()
-      console.log(value)
       tweets.forEach(tweet => {
         const textToUpper = tweet.text.toUpperCase()
         if (textToUpper.includes(value)) {
@@ -96,6 +94,5 @@ export function eventListeners(tweets) {
   })
 
   setFilters()
-  console.log("Filter parameters ->", filterParams)
   renderTweets(applyFilters(filterParams, tweets))
 }
