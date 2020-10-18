@@ -1,9 +1,7 @@
 # I Need a Product Idea
 
-1. Improve the server automation so it isn't reliant on someone refreshing every day
-2. Improve the server automation to update entries a few times a day
-3. Improve the load more functionality to not always be showing unless there actually ARE more
-4. Set up a loader for rendering
+1. Improve the load more functionality to not always be showing unless there actually ARE more
+1. Set up a loader for rendering
 
 ## Example object
 

@@ -14,8 +14,13 @@ async function init() {
     })
   }
 
-  localStorage.setItem("tweet", JSON.stringify(massiveArrayOfTweetObjects))
-  eventListeners(massiveArrayOfTweetObjects)
+  let chars = ["A", "B", "A", "C", "B"]
+
+  const uniqueArr = massiveArrayOfTweetObjects.filter((value, index) => {
+    return chars.indexOf(value.id) !== index
+  })
+
+  eventListeners(uniqueArr)
 }
 
 init()

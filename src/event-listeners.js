@@ -6,7 +6,7 @@ export const phrases = {
     iwswm: "i-wish-someone-would-make",
     gai: "great-app-idea",
     aaw: "an-app-where",
-    api: "amazing-product-idea",
+    si: "startup-idea",
     npr: "new-product-request",
     dakoaa: "does-anyone-know-of-an-app",
     iwtwas: "i-wish-there-was-a-service",

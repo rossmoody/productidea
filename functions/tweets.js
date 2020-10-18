@@ -1,7 +1,6 @@
 const needle = require("needle")
 const admin = require("firebase-admin")
 
-// Database stuff
 const creds = {
   type: process.env.FIRE_TYPE,
   project_id: process.env.FIRE_PROJECT_ID,
@@ -15,9 +14,6 @@ const creds = {
   client_x509_cert_url: process.env.FIRE_CLIENT_CERT
 }
 
-//
-//
-// Twitter API creds
 const token = process.env.BEARER_TOKEN
 const endpointUrl = "https://api.twitter.com/2/tweets/search/recent"
 
@@ -134,7 +130,8 @@ exports.handler = async (event, context, callback) => {
   }
 
   const db = admin.database()
-  const todayRef = db.ref("poop")
+  const today = new Date(Date.now()).toISOString().substring(0, 10)
+  const todayRef = db.ref(today)
 
   const tweets = await getTweets(queries)
   const tweetsTwo = await getTweets(queriesTwo)
