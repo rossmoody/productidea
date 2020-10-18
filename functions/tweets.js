@@ -23,8 +23,8 @@ const queries = [
     query_id: "i-wish-someone-would-make"
   },
   {
-    string: `"great app idea"`,
-    query_id: "great-app-idea"
+    string: `"app idea"`,
+    query_id: "app-idea"
   },
   {
     string: `"an app where"`,

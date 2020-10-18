@@ -4,7 +4,7 @@ import { applyFilters } from "./filters"
 export const phrases = {
   strings: {
     iwswm: "i-wish-someone-would-make",
-    gai: "great-app-idea",
+    ai: "app-idea",
     aaw: "an-app-where",
     si: "startup-idea",
     npr: "new-product-request",
