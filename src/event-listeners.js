@@ -91,6 +91,10 @@ export function eventListeners(tweets) {
     }, 500)
   })
 
+  window.addEventListener("unload", function (event) {
+    localStorage.setItem("tweets", "")
+  })
+
   setFilters()
   console.log("Filter parameters ->", filterParams)
   renderTweets(applyFilters(filterParams, tweets))

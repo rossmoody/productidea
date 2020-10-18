@@ -12,7 +12,8 @@ function setCount(i, k) {
   for (const values of Object.values(k)) {
     for (const value of Object.values(values)) {
       count[value] ? null : (count[value] = 0)
-      const ele = document.getElementById(value).nextElementSibling
+      const next = document.getElementById(value).nextElementSibling
+      const ele = next.nextElementSibling
       ele.textContent = count[value]
     }
   }

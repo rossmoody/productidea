@@ -1,9 +1,172 @@
-aside {
-  padding: 40px;
+:root {
+  --grey-400: #15171a;
+  --grey-300: #657786;
+  --grey-200: #ccd6dd;
+  --grey-100: #e7ecf0;
+  --grey-000: white;
+
+  --primary-color: #4c9eeb;
+
+  --default-padding: 1.2rem 1.6rem;
 }
 
-.flex {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: var(--grey-400);
+  font-size: 1.4rem;
+}
+
+h1 {
+  font-size: 4.8rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  color: var(--grey-300);
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 2rem;
+}
+
+h4 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0 0 1.6rem;
+}
+
+nav {
   display: flex;
+  justify-content: center;
+  background: var(--grey-000);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 6.2rem;
+  z-index: 1;
+}
+
+nav svg {
+  width: 22rem;
+}
+
+header {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 0 2.4rem;
+  margin: 10rem 0 5rem 0;
+  width: 100%;
+}
+
+.header {
+  max-width: 54rem;
+  display: inherit;
+  flex-direction: column;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  padding: 0 2.4rem;
+  justify-content: center;
+}
+
+.main-rule {
+  position: sticky;
+  top: 6.2rem;
+  background-color: var(--grey-200);
+  border: none;
+  height: 1px;
+  z-index: 2;
+  width: 100%;
+}
+
+.search-container {
+  display: flex;
+  background: var(--grey-000);
+  padding: 1.6rem 0;
+}
+
+#filter-by-keyword {
+  width: 100%;
+  border: 1px solid var(--grey-100);
+  border-radius: 0.8rem;
+  padding: var(--default-padding);
+  background: var(--grey-100);
+}
+
+.search-btns {
+  display: grid;
+}
+
+#filter-btn {
+  display: none;
+}
+
+aside {
+  min-width: 26rem;
+  margin: 0 2.4rem 0 0;
+  padding: 2.6rem 0 0 0;
+}
+
+fieldset {
+  padding: 0;
+  border: none;
+}
+
+.filter-hr {
+  margin: 2rem 0;
+  background-color: var(--grey-200);
+  border: none;
+  height: 1px;
+  width: 100%;
+}
+
+.checkbox-item {
+  margin: 0 0 0.8rem;
+  display: grid;
+  grid-template-columns: 2rem 1fr 3rem;
+  grid-gap: 0.8rem;
+  align-items: center;
+  font-size: 1.4rem;
+}
+
+.count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--grey-300);
+  font-size: 1.1rem;
+}
+
+#tweet-section {
+  width: 100%;
+  max-width: 550px;
 }
 
 #container {
@@ -11,8 +174,86 @@ aside {
   flex-direction: column;
 }
 
-#tweet-section {
+.load-more-cont {
+  display: flex;
+  justify-content: center;
+  margin: 2.6rem 0 8rem 0;
+}
+
+/* Select override */
+select {
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  line-height: inherit;
+  padding: 1.2rem 3.6rem 1.2rem 1.2rem;
   width: 100%;
+}
+
+.select {
+  display: flex;
+  position: relative;
+  width: max-content;
+  width: 100%;
+}
+
+.search-select {
+  min-width: 16rem;
+  margin: 0 0 0 1.6rem;
+}
+
+.select::after {
+  content: "";
+  width: 1.2rem;
+  height: 0.5rem;
+  background-color: var(--grey-400);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  position: absolute;
+  right: 2rem;
+  top: 48%;
+}
+
+.secondary-btn {
+  padding: var(--default-padding);
+  border-radius: 8px;
+  background: var(--grey-000);
+  border: 1px solid var(--grey-200);
+  justify-content: center;
+}
+
+.primary-btn {
+  cursor: pointer;
+  padding: var(--default-padding);
+  border-radius: 8px;
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  color: var(--grey-000);
+  justify-content: center;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin: 0 0 0.8rem;
+}
+
+.sidebar-select {
+  display: grid;
+  margin: 0 0 1.6rem;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  height: 2rem;
+  width: 2rem;
 }
 
 /* Accessibility label hiding class */
@@ -25,4 +266,38 @@ aside {
   padding: 0;
   position: absolute;
   width: 1px;
+}
+
+@media only screen and (max-width: 860px) {
+  nav svg {
+    width: 200px;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+  }
+
+  aside {
+    display: none;
+  }
+
+  .search-btns {
+    grid-template-columns: 1fr 3fr;
+  }
+
+  .search-container {
+    flex-direction: column;
+  }
+
+  #filter-by-keyword {
+    margin: 0 0 1.6rem;
+  }
+
+  #filter-btn {
+    display: flex;
+  }
+
+  .select {
+    width: auto;
+  }
 }

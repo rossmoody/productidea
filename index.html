@@ -9,179 +9,229 @@
     <link rel="stylesheet" type="text/css" href="styles/normalize.css" />
   </head>
   <body>
-    <nav></nav>
-    <header></header>
-    <main class="flex">
-      <aside>
-        <form>
-          <h2>Filters</h2>
-          <fieldset>
-            <legend>Phrases</legend>
-            <div>
-              <label>
+    <nav>
+      <svg viewBox="0 0 275 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0)">
+          <path
+            d="M60.034 36.5h3.686V21.925h5.286v-3.04H54.748v3.04h5.286V36.5zm10.437 0h3.564v-7.776c0-1.819 1.001-3.003 2.65-3.003 1.684 0 2.465 1.001 2.465 2.893V36.5h3.564v-8.691c0-3.21-1.611-5.042-4.602-5.042-1.916 0-3.247.916-3.857 2.368h-.22v-7.214h-3.564V36.5zm20.044.28c3.93 0 5.664-2.27 6.079-3.954l.024-.122h-3.32l-.037.073c-.244.513-1.11 1.343-2.673 1.343-1.892 0-3.076-1.282-3.113-3.492h9.253v-1.11c0-4.065-2.441-6.75-6.36-6.75-3.918 0-6.42 2.746-6.42 7.018v.012c0 4.31 2.477 6.983 6.567 6.983zm-.086-11.34c1.55 0 2.661 1.001 2.881 2.954h-5.798c.22-1.904 1.367-2.954 2.917-2.954zm8.008 11.06h3.687v-5.554h3.576c3.711 0 6.189-2.393 6.189-6.018v-.025c0-3.625-2.478-6.018-6.189-6.018h-7.263V36.5zm6.36-14.697c2.112 0 3.357 1.11 3.357 3.113v.024c0 2.002-1.245 3.125-3.357 3.125h-2.673v-6.262h2.673zm8.569 14.697h3.565v-7.52c0-1.904 1.281-3.064 3.308-3.064.549 0 1.098.086 1.636.208v-3.113a5.345 5.345 0 00-1.331-.17c-1.746 0-2.966.854-3.394 2.306h-.219V23.06h-3.565V36.5zm14.978.28c4.138 0 6.629-2.611 6.629-6.994v-.024c0-4.346-2.527-6.995-6.629-6.995-4.101 0-6.628 2.661-6.628 6.995v.024c0 4.37 2.49 6.995 6.628 6.995zm0-2.795c-1.904 0-2.978-1.55-2.978-4.199v-.024c0-2.625 1.086-4.2 2.978-4.2 1.88 0 2.979 1.575 2.979 4.2v.024c0 2.65-1.087 4.2-2.979 4.2zm12.769 2.723c1.892 0 3.32-.843 4.016-2.295h.22V36.5h3.564V17.92h-3.564v7.288h-.22c-.671-1.464-2.173-2.368-4.016-2.368-3.406 0-5.457 2.6-5.457 6.922v.024c0 4.297 2.1 6.922 5.457 6.922zm1.208-2.955c-1.88 0-3.039-1.489-3.039-3.967v-.024c0-2.454 1.159-3.968 3.039-3.968 1.88 0 3.064 1.514 3.064 3.98v.024c0 2.466-1.172 3.955-3.064 3.955zm13.159 3.028c1.917 0 3.284-.891 3.895-2.356h.219V36.5h3.565V23.06h-3.565v7.764c0 1.819-.952 3.003-2.71 3.003-1.684 0-2.405-.99-2.405-2.893V23.06h-3.564v8.692c0 3.198 1.55 5.029 4.565 5.029zm15.613 0c3.504 0 5.603-1.88 5.969-4.81l.013-.073h-3.296l-.025.049c-.317 1.343-1.184 2.038-2.649 2.038-1.904 0-2.966-1.501-2.966-4.223v-.025c0-2.685 1.05-4.174 2.966-4.174 1.526 0 2.417.854 2.649 2.16l.013.025h3.32v-.037c-.317-3.003-2.429-4.944-5.994-4.944-4.211 0-6.579 2.551-6.579 6.97v.025c0 4.468 2.38 7.019 6.579 7.019zm12.915-.232c.684 0 1.343-.073 1.783-.159v-2.649a8.401 8.401 0 01-1.05.061c-1.209 0-1.721-.537-1.721-1.745v-6.311h2.771V23.06h-2.771v-3.21h-3.602v3.21h-2.075v2.686h2.075v7.128c0 2.613 1.319 3.675 4.59 3.675zm3.54-.049h3.687V18.885h-3.687V36.5zm10.84.208c1.892 0 3.32-.843 4.016-2.295h.22V36.5h3.564V17.92h-3.564v7.288h-.22c-.671-1.464-2.173-2.368-4.016-2.368-3.406 0-5.456 2.6-5.456 6.922v.024c0 4.297 2.099 6.922 5.456 6.922zm1.209-2.955c-1.88 0-3.04-1.489-3.04-3.967v-.024c0-2.454 1.16-3.968 3.04-3.968 1.88 0 3.064 1.514 3.064 3.98v.024c0 2.466-1.172 3.955-3.064 3.955zm14.624 3.028c3.93 0 5.664-2.27 6.079-3.955l.024-.122h-3.32l-.037.073c-.244.513-1.111 1.343-2.673 1.343-1.892 0-3.076-1.282-3.113-3.492h9.253v-1.11c0-4.065-2.441-6.75-6.36-6.75-3.918 0-6.421 2.746-6.421 7.018v.012c0 4.31 2.478 6.983 6.568 6.983zm-.086-11.34c1.551 0 2.661 1 2.881 2.954h-5.798c.22-1.905 1.367-2.955 2.917-2.955zm11.316 11.267c1.758 0 3.174-.745 3.858-1.99h.219V36.5h3.516v-9.18c0-2.868-2.014-4.553-5.579-4.553-3.381 0-5.603 1.563-5.883 3.919l-.013.11h3.296l.025-.05c.28-.793 1.098-1.244 2.38-1.244 1.465 0 2.258.659 2.258 1.818v1.111l-3.247.195c-3.344.196-5.212 1.612-5.212 4.029v.024c0 2.442 1.819 4.029 4.382 4.029zm-.903-4.248v-.025c0-.977.744-1.55 2.27-1.648l2.71-.17v.988c0 1.416-1.233 2.502-2.881 2.502-1.232 0-2.099-.622-2.099-1.648zm10.779 4.04h11.523v-3.04h-7.837V18.885h-3.686V36.5zm14.77-15.503c1.099 0 2.002-.879 2.002-1.977 0-1.111-.903-1.99-2.002-1.99-1.098 0-2.014.879-2.014 1.99 0 1.098.916 1.977 2.014 1.977zM248.303 36.5h3.564V23.06h-3.564V36.5zm10.937.28c3.443 0 5.896-1.733 5.896-4.394v-.012c0-1.99-1.257-3.113-3.943-3.687l-2.234-.476c-1.391-.305-1.892-.72-1.892-1.44v-.012c0-.904.879-1.477 2.112-1.477 1.331 0 2.124.671 2.32 1.391l.012.061h3.308v-.049c-.147-2.16-2.1-3.918-5.628-3.918-3.357 0-5.603 1.685-5.603 4.212v.012c0 2.014 1.27 3.271 3.833 3.82l2.246.477c1.368.305 1.905.756 1.905 1.477v.024c0 .891-.928 1.477-2.295 1.477-1.404 0-2.222-.598-2.503-1.428l-.024-.049h-3.503l.012.049c.256 2.307 2.331 3.943 5.981 3.943zm12.757-.231c.683 0 1.342-.073 1.782-.159v-2.649a8.401 8.401 0 01-1.05.061c-1.208 0-1.721-.537-1.721-1.745v-6.311h2.771V23.06h-2.771v-3.21h-3.601v3.21h-2.075v2.686h2.075v7.128c0 2.613 1.318 3.675 4.59 3.675z"
+            fill="#15171A"
+          />
+          <path
+            d="M25 2.083a20.833 20.833 0 100 41.667 20.833 20.833 0 000-41.667z"
+            fill="#FFF59D"
+          />
+          <path
+            d="M38.542 22.917c0-8.021-6.875-14.375-15.105-13.438-6.25.73-11.25 5.73-11.875 11.98-.52 4.791 1.459 9.062 4.792 11.77 1.459 1.25 2.396 3.021 2.396 5v.313h12.5v-.105c0-1.874.833-3.75 2.292-5 3.02-2.5 5-6.25 5-10.52z"
+            fill="#FBC02D"
+          />
+          <path
+            d="M31.875 21.042l-3.125-2.084c-.313-.208-.833-.208-1.146 0L25 20.625l-2.5-1.667c-.313-.208-.833-.208-1.146 0l-3.125 2.084c-.208.208-.416.416-.416.729 0 .312 0 .625.208.833l3.958 4.896v11.042h2.084V27.083c0-.208-.105-.416-.209-.625l-3.437-4.27 1.562-1.042 2.5 1.666c.313.209.834.209 1.146 0l2.5-1.666 1.563 1.041-3.438 4.271c-.104.209-.208.417-.208.625v11.459h2.083V27.5l3.958-4.896a.81.81 0 00.209-.833c-.105-.313-.209-.625-.417-.73z"
+            fill="#FFF59D"
+          />
+          <path
+            d="M25 42.708a3.125 3.125 0 100 6.25 3.125 3.125 0 000-6.25z"
+            fill="#5C6BC0"
+          />
+          <path
+            d="M27.083 46.875h-4.166a4.179 4.179 0 01-4.167-4.167V37.5h12.5v5.208a4.179 4.179 0 01-4.167 4.167z"
+            fill="#9FA8DA"
+          />
+          <path
+            d="M31.25 42.708l-12.083 1.667a4.14 4.14 0 001.666 1.875l9.792-1.354c.417-.625.625-1.354.625-2.188zm-12.5-2.395v2.083l12.5-1.77v-2.084l-12.5 1.77z"
+            fill="#5C6BC0"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0">
+            <path fill="#fff" d="M0 0h275v50H0z" />
+          </clipPath>
+        </defs>
+      </svg>
+    </nav>
+    <header>
+      <div class="header">
+        <h1>The product idea list for product idealists</h1>
+        <h2>
+          Stuck coming up with your next revolutionary product idea? Take your
+          pick of prevalidated ideas straight from people on Twitter.
+        </h2>
+      </div>
+    </header>
+    <main>
+      <hr class="main-rule" />
+      <div class="main">
+        <aside>
+          <form class="aside-form">
+            <h3>Filters</h3>
+            <hr class="filter-hr" />
+            <fieldset class="fieldset">
+              <legend><h4>Phrases</h4></legend>
+              <div class="checkbox-item">
                 <input type="checkbox" id="i-wish-someone-would-make" checked />
-                I wish someone would make
+                <label for="i-wish-someone-would-make"
+                  >I wish someone would make</label
+                >
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="great-app-idea" checked />
-                Great app idea
+                <label for="great-app-idea"> Great app idea </label>
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="an-app-where" checked />
-                An app where
+                <label for="an-app-where"> An app where </label>
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="amazing-product-idea" checked />
-                Amazing product idea
+                <label for="amazing-product-idea"> Amazing product idea </label>
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="new-product-request" checked />
-                New product request
+                <label for="new-product-request"> New product request </label>
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input
                   type="checkbox"
                   id="does-anyone-know-of-an-app"
                   checked
                 />
-                Does anybody know of an app
+                <label for="does-anyone-know-of-an-app">
+                  Does anybody know of an app
+                </label>
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input
                   type="checkbox"
                   id="i-wish-there-was-a-service"
                   checked
                 />
-                I wish there was a service
+                <label for="i-wish-there-was-a-service">
+                  I wish there was a service
+                </label>
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="i-wish-there-was-an-app" checked />
-                I wish there was an app
+                <label for="i-wish-there-was-an-app">
+                  I wish there was an app
+                </label>
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="wish-i-could-find" checked />
-                Wish I could find
+                <label for="wish-i-could-find"> Wish I could find </label>
                 <span class="count"></span>
-              </label>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Hashtags</legend>
-            <div>
-              <label>
+              </div>
+            </fieldset>
+            <hr class="filter-hr" />
+            <fieldset class="fieldset">
+              <legend><h4>Hashtags</h4></legend>
+              <div class="checkbox-item">
                 <input type="checkbox" id="productidealist" />
-                #productidealist
+                <label for="productidealist"> #productidealist </label>
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="productidea" />
-                #productidea
+                <label for="productidea"> #productidea </label>
                 <span class="count"></span>
-              </label>
-            </div>
-            <div>
-              <label>
+              </div>
+              <div class="checkbox-item">
                 <input type="checkbox" id="appidea" />
-                #appidea
+                <label for="appidea"> #appidea </label>
                 <span class="count"></span>
-              </label>
+              </div>
+            </fieldset>
+            <hr class="filter-hr" />
+            <fieldset class="fieldset">
+              <legend><h4>Time window</h4></legend>
+              <div class="sidebar-select">
+                <label for="dates" class="label">Dates</label>
+                <div class="select">
+                  <select name="dates" id="dates">
+                    <option value="daily" selected="selected">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <!-- <option value="yearly">Yearly</option> -->
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+            <hr class="filter-hr" />
+            <fieldset class="fieldset">
+              <legend><h4>Engagement</h4></legend>
+              <div class="sidebar-select">
+                <label for="min-likes" class="label">Minimum likes</label>
+                <div class="select">
+                  <select id="min-likes" name="min-likes" id="min-likes">
+                    <option value="0">0</option>
+                    <option value="1" selected="selected">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sidebar-select">
+                <label for="min-retweets" class="label">Minimum retweets</label>
+                <div class="select">
+                  <select id="min-retweets" name="min-retweets">
+                    <option value="0" selected="selected">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </aside>
+        <section id="tweet-section">
+          <div class="search-container">
+            <label class="visuallyhidden" for="filter-by-keyword">
+              Filter results by keyword
+            </label>
+            <input
+              type="text"
+              id="filter-by-keyword"
+              placeholder="Filter by keyword"
+            />
+            <div class="search-btns">
+              <button id="filter-btn" class="primary-btn">Filter</button>
+              <label for="sort" class="visuallyhidden">Sort results by</label>
+              <div class="select search-select">
+                <select id="sort" name="sort">
+                  <option value="likes" selected="selected">Most likes</option>
+                  <option value="retweets">Most retweets</option>
+                  <option value="recent">Most recent</option>
+                </select>
+              </div>
             </div>
-          </fieldset>
-          <fieldset>
-            <legend>Engagement</legend>
-            <div>
-              <label for="min-likes">Minimum likes</label>
-              <select id="min-likes" name="min-likes" id="min-likes">
-                <option value="0">0</option>
-                <option value="1" selected="selected">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-            </div>
-            <div>
-              <label for="min-retweets">Minimum retweets</label>
-              <select id="min-retweets" name="min-retweets">
-                <option value="0" selected="selected">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Dates</legend>
-            <div>
-              <label for="dates" class="visuallyhidden"
-                >Show tweets from the past</label
-              >
-              <select name="dates" id="dates">
-                <option value="daily" selected="selected">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <!-- <option value="yearly">Yearly</option> -->
-              </select>
-            </div>
-          </fieldset>
-        </form>
-      </aside>
-      <section id="tweet-section">
-        <label class="visuallyhidden" for="filter-by-keyword">
-          Filter results by keyword
-        </label>
-        <input
-          type="text"
-          id="filter-by-keyword"
-          placeholder="Filter by keyword"
-        />
-        <label for="sort" class="visuallyhidden">Sort results by</label>
-        <select id="sort" name="sort">
-          <option value="likes" selected="selected">Most likes</option>
-          <option value="retweets">Most retweets</option>
-          <option value="recent">Most recent</option>
-        </select>
-        <div id="container">
-          <div id="tweet-container"></div>
-        </div>
-        <button id="load-more">Load more ideas</button>
-      </section>
+          </div>
+          <div id="container">
+            <div id="tweet-container"></div>
+          </div>
+          <div class="load-more-cont">
+            <button class="primary-btn" id="load-more">Load more ideas</button>
+          </div>
+        </section>
+      </div>
     </main>
     <footer>
       Made by <a href="https://www.twitter.com/_rossmoody">@_rossmoody</a>

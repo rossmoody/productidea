@@ -1,3 +1,12 @@
+function makeTweets(arr, node) {
+  arr.forEach(tweet => {
+    twttr.widgets.createTweet(`${tweet.id}`, node, {
+      conversation: "none"
+      // cards: "hidden"
+    })
+  })
+}
+
 export function renderTweets(tweets) {
   // Remove tweets
   const tweetCont = document.getElementById("tweet-container")
@@ -17,22 +26,10 @@ export function renderTweets(tweets) {
   loadMoreBtn.addEventListener("click", () => {
     firstInt += 10
     secondInt += 10
-
     const div = document.createElement("div")
     newTweetCont.appendChild(div)
-
-    tweets.slice(firstInt, secondInt).forEach(tweet => {
-      twttr.widgets.createTweet(`${tweet.id}`, div, {
-        conversation: "none",
-        cards: "hidden"
-      })
-    })
+    makeTweets(tweets.slice(firstInt, secondInt), div)
   })
 
-  tweets.slice(firstInt, secondInt).forEach(tweet => {
-    twttr.widgets.createTweet(`${tweet.id}`, newTweetCont, {
-      conversation: "none",
-      cards: "hidden"
-    })
-  })
+  makeTweets(tweets.slice(firstInt, secondInt), newTweetCont)
 }
