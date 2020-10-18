@@ -1,9 +1,10 @@
 # I Need a Product Idea
 
 1. Setup filter sidebar on mobile
-2. Favico
-3. Media graphics
-4. SEO
+1. A no results case for the search
+1. Favico
+1. Media graphics
+1. SEO
 
 ## Example object
 
