@@ -14,8 +14,6 @@ async function init() {
     })
   }
 
-  let chars = ["A", "B", "A", "C", "B"]
-
   const uniqueArr = massiveArrayOfTweetObjects.filter((value, index) => {
     return chars.indexOf(value.id) !== index
   })
