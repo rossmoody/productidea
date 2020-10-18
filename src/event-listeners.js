@@ -12,7 +12,8 @@ export const phrases = {
     iwtwas: "i-wish-there-was-a-service",
     iwtwaa: "i-wish-there-was-an-app",
     wicf: "wish-i-could-find",
-    ipft: "id-pay-for-that"
+    ipft: "id-pay-for-that",
+    wibai: "wouldnt-it-be-awesome-if"
   },
   hashtags: {
     appIdea: "appidea"
@@ -29,11 +30,9 @@ export function eventListeners(tweets) {
   }
 
   function setFilters() {
-    for (const [entries, values] of Object.entries(phrases)) {
+    for (const values of Object.values(phrases)) {
       for (const value of Object.values(values)) {
-        entries === "strings"
-          ? (filterParams.filters[value] = true)
-          : (filterParams.filters[value] = false)
+        filterParams.filters[value] = true
 
         const listener = document.getElementById(value)
         listener.addEventListener("change", event => {

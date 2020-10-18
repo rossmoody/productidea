@@ -37,6 +37,10 @@ const queries = [
   {
     string: `"new product idea"`,
     query_id: "new-product-request"
+ , }
+  {
+    string: `"wouldn't it be awesome if"`,
+    query_id: "wouldnt-it-be-awesome-if"
   }
 ]
 
