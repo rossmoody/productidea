@@ -1,6 +1,5 @@
 const admin = require("firebase-admin")
 
-// Database stuff
 const creds = {
   type: process.env.FIRE_TYPE,
   project_id: process.env.FIRE_PROJECT_ID,
