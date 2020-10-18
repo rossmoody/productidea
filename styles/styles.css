@@ -41,7 +41,7 @@ h2 {
 }
 
 h3 {
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 800;
   margin: 0 0 2rem;
 }
@@ -130,8 +130,8 @@ main {
 
 aside {
   min-width: 26rem;
-  margin: 0 2.4rem 0 0;
-  padding: 2.6rem 0 0 0;
+  margin: 0 3.2rem 0 0;
+  padding: 1.6rem 0 0 0;
 }
 
 fieldset {
@@ -161,7 +161,7 @@ fieldset {
   justify-content: center;
   align-items: center;
   color: var(--grey-300);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 #tweet-section {
@@ -198,8 +198,6 @@ select {
 .select {
   display: flex;
   position: relative;
-  width: max-content;
-  width: 100%;
 }
 
 .search-select {
