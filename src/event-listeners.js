@@ -1,5 +1,6 @@
 import { renderTweets } from "./render"
 import { applyFilters } from "./filters"
+import { filterPanel } from "./mobile-filter"
 
 export const phrases = {
   strings: {
@@ -48,6 +49,7 @@ export function eventListeners(tweets) {
   const sortBy = document.getElementById("sort")
   const time = document.getElementById("dates")
   const input = document.getElementById("filter-by-keyword")
+  const filterBtn = document.getElementById("filter-btn")
 
   minLikes.addEventListener("change", event => {
     filterParams.likes = event.target.value
@@ -67,6 +69,10 @@ export function eventListeners(tweets) {
   time.addEventListener("change", event => {
     filterParams.time = event.target.value
     renderTweets(applyFilters(filterParams, tweets))
+  })
+
+  filterBtn.addEventListener("click", () => {
+    filterPanel()
   })
 
   let timer
