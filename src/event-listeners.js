@@ -23,7 +23,7 @@ export const phrases = {
 
 export function eventListeners(tweets) {
   const filterParams = {
-    likes: 1,
+    likes: 0,
     retweets: 0,
     sortBy: "likes", // likes, recent
     time: "daily", // weekly, monthly, yearly
