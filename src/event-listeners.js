@@ -11,7 +11,8 @@ export const phrases = {
     dakoaa: "does-anyone-know-of-an-app",
     iwtwas: "i-wish-there-was-a-service",
     iwtwaa: "i-wish-there-was-an-app",
-    wicf: "wish-i-could-find"
+    wicf: "wish-i-could-find",
+    ipft: "id-pay-for-that"
   },
   hashtags: {
     productidealist: "productidealist",

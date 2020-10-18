@@ -31,8 +31,8 @@ const queries = [
     query_id: "an-app-where"
   },
   {
-    string: `"amazing product idea"`,
-    query_id: "amazing-product-idea"
+    string: `"startup-idea"`,
+    query_id: "startup-idea"
   },
   {
     string: `"new product idea"`,
