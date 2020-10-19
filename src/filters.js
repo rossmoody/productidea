@@ -33,6 +33,10 @@ export function applyFilters(filterParams, tweets) {
     return filterParams.filters[tweet.query_id]
   }
 
+  function filterTrump(tweet) {
+    return tweet.text.includes("Trump")
+  }
+
   function filterByTime(tweet) {
     let multiplier
 
@@ -54,6 +58,7 @@ export function applyFilters(filterParams, tweets) {
     .filter(filterByTime)
     .filter(filterLikes)
     .filter(filterRetweets)
+    .filter(filterTrump)
 
   setCount(timeResults, phrases)
 
