@@ -34,7 +34,11 @@ export function applyFilters(filterParams, tweets) {
   }
 
   function filterTrump(tweet) {
-    return tweet.text.includes("Trump")
+    if (tweet.text.includes("Trump") || tweet.text.includes("trump")) {
+      return false
+    } else {
+      return tweet
+    }
   }
 
   function filterByTime(tweet) {
