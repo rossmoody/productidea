@@ -4,10 +4,14 @@ function makeTweets(arr, node) {
 
   twttr.ready(() => {
     arr.forEach(tweet => {
-      twttr.widgets.createTweet(`${tweet.id}`, node, {
-        conversation: "none",
-        cards: "hidden"
-      })
+      try {
+        twttr.widgets.createTweet(`${tweet.id}`, node, {
+          conversation: "none",
+          cards: "hidden"
+        })
+      } catch (error) {
+        console.log("Yuck, an error", error)
+      }
     })
   })
 
