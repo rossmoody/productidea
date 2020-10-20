@@ -79,7 +79,6 @@ export function applyFilters(filterParams, tweets) {
   }
 
   const sortedResults = filteredResults.sort(function (a, b) {
-    console.log(a.public_metrics.like_count)
     return b.public_metrics[sortBy] - a.public_metrics[sortBy]
   })
 
