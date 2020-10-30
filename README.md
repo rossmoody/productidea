@@ -1,24 +1,3 @@
-# I Need a Product Idea
+# The Product Idea List
 
-1. Setup filter sidebar on mobile
-1. A no results case for the search
-1. Favico
-1. Media graphics
-1. SEO
-
-## Example object
-
-```
-{​
-    created_at: "2020-10-17T12:32:14.000Z"
-    id: "1317443300979245056"
-    public_metrics: {
-        like_count: 31
-        quote_count: 0
-        reply_count: 3
-        retweet_count: 6
-    }
-    query_id: "new-product-request"
-    text: "..."
-}
-```
+The repository for theproductidealist.com website. A fun side project for gathering ideas from the friendly folks on Twitter.
