@@ -33,12 +33,38 @@ export function applyFilters(filterParams, tweets) {
     return filterParams.filters[tweet.query_id]
   }
 
-  function filterTrump(tweet) {
-    if (tweet.text.includes("Trump") || tweet.text.includes("trump")) {
-      return false
-    } else {
-      return tweet
-    }
+  function filterCertainWords(tweet) {
+    const words = [
+      "trump",
+      "asshole",
+      "pussy",
+      "dick",
+      "butthole",
+      "piss",
+      "horny",
+      "clitoris",
+      "hitler",
+      "testicles",
+      "penis",
+      "vagina"
+    ]
+
+    let hasNaughtyWord = true
+
+    words.forEach(word => {
+      const title = word.charAt(0).toUpperCase() + word.slice(1)
+      const upper = word.toUpperCase()
+
+      if (
+        tweet.text.includes(word) ||
+        tweet.text.includes(title) ||
+        tweet.text.includes(upper)
+      ) {
+        hasNaughtyWord = false
+      }
+    })
+
+    return hasNaughtyWord ? tweet : hasNaughtyWord
   }
 
   function filterByTime(tweet) {
@@ -62,7 +88,7 @@ export function applyFilters(filterParams, tweets) {
     .filter(filterByTime)
     .filter(filterLikes)
     .filter(filterRetweets)
-    .filter(filterTrump)
+    .filter(filterCertainWords)
 
   setCount(timeResults, phrases)
 
