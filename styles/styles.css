@@ -259,6 +259,11 @@ input[type="checkbox"] {
   width: 2rem;
 }
 
+.no-results {
+  text-align: center;
+  margin: 48px 24px;
+}
+
 /* Accessibility label hiding class */
 .visuallyhidden {
   border: 0;
